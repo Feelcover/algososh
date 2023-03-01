@@ -18,12 +18,12 @@ export const FibonacciPage: React.FC = () => {
   const fibonacciFunc = async (num: number) => {
     setIsLoading(true);
     let fibArr: number[] = [0, 1];
-    for (let i = 2; i <= inputValue; i++) {
+    for (let i = 2; i <= num; i++) {
       const a = fibArr[i - 1];
       const b = fibArr[i - 2];
       fibArr.push(a + b);
     }
-    for (let i = 0; i < inputValue; i++) {
+    for (let i = 0; i < num; i++) {
       fibArr.push(fibArr[i - 2] + fibArr[i - 1]);
       setArr(fibArr.slice(0, i + 1));
       await delay(500);
