@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { ElementStates } from "../../types/element-states";
 import { TStringArr } from "../../types/other-types";
 import { delay } from "../../utils/delay";
@@ -7,7 +7,7 @@ import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import styles from "./string-page.module.css";
-import { maxLength, swap } from "./string-page-utils";
+import { swap } from "./string-page-utils";
 
 
 export const StringPage: React.FC = () => {
@@ -18,6 +18,7 @@ export const StringPage: React.FC = () => {
   const handleChangeInput = (evt: ChangeEvent<HTMLInputElement>) => {
     setInputValue(evt.target.value);
   };
+
 
   const stringReverse = async (arr: TStringArr[]) => {
     setIsLoading(true);
@@ -47,7 +48,7 @@ export const StringPage: React.FC = () => {
 
   useEffect(() => {
     function handleEnterKeydown(evt: KeyboardEvent) {
-      if (evt.key === "Enter") {
+      if (evt.key === "Enter" && inputValue.length >= 2) {
         evt.preventDefault()
         onClickReverse()
       }
@@ -64,7 +65,7 @@ export const StringPage: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.form}>
           <Input
-            maxLength={maxLength}
+            maxLength={11}
             onChange={handleChangeInput}
             extraClass={styles.input}
             isLimitText={true}
@@ -75,7 +76,7 @@ export const StringPage: React.FC = () => {
             onClick={onClickReverse}
             extraClass={styles.button}
             isLoader={isLoading}
-            disabled={!inputValue}
+            disabled={!inputValue || inputValue.length < 2}
           />
         </div>
         <ul className={styles.elements}>
