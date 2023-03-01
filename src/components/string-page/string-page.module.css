@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    justify-content: center;
 }
 
 .form {
@@ -21,7 +22,7 @@
     width: 100%;
 }
 
-.element {
+.elements {
     display: flex;
     gap: 16px;
     flex-wrap: wrap;

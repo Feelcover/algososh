@@ -16,7 +16,6 @@ export const StringPage: React.FC = () => {
 
   const [inputValue, setInputValue] = useState<string>("");
   const handleChangeInput = (evt: ChangeEvent<HTMLInputElement>) => {
-    evt.preventDefault();
     setInputValue(evt.target.value);
   };
 
@@ -79,7 +78,7 @@ export const StringPage: React.FC = () => {
             disabled={!inputValue}
           />
         </div>
-        <ul className={styles.element}>
+        <ul className={styles.elements}>
           {arr.map((item, index) => {
             return (
               <Circle key={index} letter={item.value} state={item.color} />
