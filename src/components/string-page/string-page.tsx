@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { ElementStates } from "../../types/element-states";
 import { TStringArr } from "../../types/other-types";
 import { delay } from "../../utils/delay";
@@ -9,7 +9,6 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import styles from "./string-page.module.css";
 import { maxLength, swap } from "./string-page-utils";
 
-// const arr = ["H", "E", "L", "L", "O"];
 
 export const StringPage: React.FC = () => {
   const [arr, setArr] = useState<Array<TStringArr>>([]);
@@ -17,6 +16,7 @@ export const StringPage: React.FC = () => {
 
   const [inputValue, setInputValue] = useState<string>("");
   const handleChangeInput = (evt: ChangeEvent<HTMLInputElement>) => {
+    evt.preventDefault();
     setInputValue(evt.target.value);
   };
 
@@ -43,25 +43,27 @@ export const StringPage: React.FC = () => {
   const onClickReverse = () => {
     const arr = inputValue.split("").map((value) => ({ value, color: ElementStates.Default }));
     stringReverse(arr);
+    setInputValue('');
   };
 
   useEffect(() => {
     function handleEnterKeydown(evt: KeyboardEvent) {
       if (evt.key === "Enter") {
-        onClickReverse();
         evt.preventDefault()
+        onClickReverse()
       }
     }
     document.addEventListener("keydown", handleEnterKeydown);
     return () => {
       document.removeEventListener("keydown", handleEnterKeydown);
     };
-  }, []);
+  }, [inputValue]);
+
 
   return (
     <SolutionLayout title="Строка">
       <div className={styles.container}>
-        <form className={styles.form}>
+        <div className={styles.form}>
           <Input
             maxLength={maxLength}
             onChange={handleChangeInput}
@@ -76,7 +78,7 @@ export const StringPage: React.FC = () => {
             isLoader={isLoading}
             disabled={!inputValue}
           />
-        </form>
+        </div>
         <ul className={styles.element}>
           {arr.map((item, index) => {
             return (
