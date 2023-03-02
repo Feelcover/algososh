@@ -15,6 +15,7 @@ export const SortingPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState<TSortLoader>({
     ASC: false,
     DSC: false,
+    Loader: false,
   });
 
   const [selected, setSelected] = useState<string>("select");
@@ -23,13 +24,15 @@ export const SortingPage: React.FC = () => {
   };
 
   const selectSort = async (ascOrDsc: boolean) => {
-    setIsLoading({ ASC: ascOrDsc, DSC: !ascOrDsc });
+    setIsLoading({ ASC: ascOrDsc, DSC: !ascOrDsc, Loader: true });
     const sortArr = arr.slice();
-    for (let i = 0; i < sortArr.length; i++) {
+    const { length } = sortArr;
+
+    for (let i = 0; i < length; i++) {
       let currentId = i;
       sortArr[currentId].state = ElementStates.Changing;
       setArr([...sortArr]);
-      for (let j = i + 1; j < sortArr.length; j++) {
+      for (let j = i + 1; j < length; j++) {
         sortArr[j].state = ElementStates.Changing;
         setArr([...sortArr]);
         await delay(500);
@@ -52,7 +55,41 @@ export const SortingPage: React.FC = () => {
       setArr([...sortArr]);
       await delay(500);
     }
-    setIsLoading({ ASC: false, DSC: false });
+    setIsLoading({ ASC: false, DSC: false, Loader: false });
+  };
+
+  const bubbleSort = async (ascOrDsc: boolean) => {
+    setIsLoading({ ASC: ascOrDsc, DSC: !ascOrDsc, Loader: true });
+    const sortArr = arr.slice();
+    const { length } = sortArr;
+    for (let i = 0; i < length; i++) {
+      for (let j = 0; j < length - 1; j++) {
+        sortArr[j].state = ElementStates.Changing;
+        sortArr[j + 1].state = ElementStates.Changing;
+        setArr([...sortArr]);
+        await delay(500);
+        if (ascOrDsc) {
+          if (sortArr[j].number > sortArr[j + 1].number) {
+            swap(sortArr, j, j + 1);
+            setArr([...sortArr]);
+            await delay(500);
+          }
+        } else {
+          if (sortArr[j].number < sortArr[j + 1].number) {
+            swap(sortArr, j, j + 1);
+            setArr([...sortArr]);
+            await delay(500);
+          }
+        }
+        sortArr[j].state = ElementStates.Default;
+        sortArr[j + 1].state = ElementStates.Default;
+        setArr([...sortArr]);
+      }
+      sortArr[length - i - 1].state = ElementStates.Modified;
+      setArr([...sortArr]);
+      await delay(500);
+    }
+    setIsLoading({ ASC: false, DSC: false, Loader: false });
   };
 
   const handleCreateArr = () => {
@@ -67,9 +104,7 @@ export const SortingPage: React.FC = () => {
   };
 
   const onClickSort = (ascOrDsc: boolean) => {
-    if (selected === "select") {
-      selectSort(ascOrDsc);
-    }
+    selected === "select" ? selectSort(ascOrDsc) : bubbleSort(ascOrDsc);
   };
 
   useEffect(() => {
@@ -94,12 +129,14 @@ export const SortingPage: React.FC = () => {
             type="button"
             text="По возрастанию"
             isLoader={isLoading.ASC}
+            disabled={isLoading.Loader}
             onClick={() => onClickSort(true)}
           />
           <Button
             type="button"
             text="По убыванию"
             isLoader={isLoading.DSC}
+            disabled={isLoading.Loader}
             onClick={() => onClickSort(false)}
           />
           <div className={styles.button}>
@@ -108,7 +145,7 @@ export const SortingPage: React.FC = () => {
               text="Новый массив"
               minLength={4}
               maxLength={17}
-              disabled={isLoading.ASC || isLoading.DSC}
+              disabled={isLoading.Loader}
               onClick={handleCreateArr}
             />
           </div>

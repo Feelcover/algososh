@@ -8,6 +8,7 @@ export type TStringArr = {
 export type TSortLoader = {
   ASC: boolean;
   DSC: boolean;
+  Loader:boolean;
 };
 
 export type TSortArr = {
