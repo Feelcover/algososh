@@ -1,8 +1,8 @@
 interface IStack<T> {
   get: () => (T | null)[];
-  push:(item: T) => void;
-  delete:() => void;
-  clear:() => void;
+  push: (item: T) => void;
+  delete: () => void;
+  clear: () => void;
 }
 export default class Stack<T> implements IStack<T> {
   private container: T[] = [];
