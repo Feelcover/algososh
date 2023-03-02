@@ -7,7 +7,7 @@ import { Circle } from "../ui/circle/circle";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import styles from "./string-page.module.css";
-import { swap } from "./string-page-utils";
+import { swap } from "../../utils/swap";
 
 
 export const StringPage: React.FC = () => {
