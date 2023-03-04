@@ -15,3 +15,13 @@ export type TSortArr = {
   number: number;
   state: ElementStates;
 };
+
+export type TList = {
+  state: ElementStates,
+  el: number | string,
+  add?: boolean;
+  delete?: boolean;
+  smallCircle?: {
+      el?: string | null;
+  };
+}
