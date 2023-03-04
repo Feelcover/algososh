@@ -19,11 +19,11 @@ export type TSortArr = {
 type TElement = {
 	value: string;
 	state: ElementStates;
-	position: 'add' | 'remove';
+	position: 'add' | 'delete';
 }
 
 export type TList = {
 	value: string,
 	state: ElementStates
-	Element: TElement | null;
+	element: TElement | null;
 }

@@ -33,15 +33,19 @@
   width: 240px;
 }
 
-.upElement {
+.smallElement {
   position: absolute;
+  z-index: 9;
+  background-color: #FFFFFF;
+}
+
+.add {
   top: -67px;
   left: 13px;
 }
 
-.downElement {
-  position: absolute;
-  top: 95px;
+.delete {
+  top: 92px;
   left: 13px;
 }
 
