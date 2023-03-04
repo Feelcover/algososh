@@ -16,12 +16,14 @@ export type TSortArr = {
   state: ElementStates;
 };
 
+type TElement = {
+	value: string;
+	state: ElementStates;
+	position: 'add' | 'remove';
+}
+
 export type TList = {
-  state: ElementStates,
-  el: number | string,
-  add?: boolean;
-  delete?: boolean;
-  smallCircle?: {
-      el?: string | null;
-  };
+	value: string,
+	state: ElementStates
+	Element: TElement | null;
 }

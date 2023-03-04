@@ -1,25 +1,25 @@
 import React, { ChangeEvent, useMemo, useState } from "react";
 import { ElementStates } from "../../types/element-states";
 import { TList } from "../../types/other-types";
+import { delay } from "../../utils/delay";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { ArrowIcon } from "../ui/icons/arrow-icon";
 import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
-import { randArr } from "./list-page-utils";
 import styles from "./list-page.module.css";
 import List from "./listClass";
 
+const initialArray = ["85", "13", "34", "7"];
+const list = new List<string>(initialArray);
+
 export const ListPage: React.FC = () => {
-  let randomArray = randArr();
-  const list = useMemo(() => {
-    return new List<number>(randomArray);
-  }, []);
-  const newArr: TList[] = randomArray.map((item) => ({
+  const listArr: TList[] = initialArray.map((item) => ({
+    value: item,
     state: ElementStates.Default,
-    el: item,
+    Element: null,
   }));
-  const [arr, setArr] = useState<TList[]>(newArr);
+  const [arr, setArr] = useState<TList[]>(listArr);
   const [isLoading, setIsLoading] = useState({
     addToHead: false,
     addToTail: false,
@@ -27,6 +27,7 @@ export const ListPage: React.FC = () => {
     deleteInTail: false,
     addByIndex: false,
     deleteByIndex: false,
+    disabled: false,
   });
 
   const [inputValue, setInputValue] = useState<string>("");
@@ -38,7 +39,63 @@ export const ListPage: React.FC = () => {
   const handleChangeInputIndex = (evt: ChangeEvent<HTMLInputElement>) => {
     setInputIndex(evt.target.value);
   };
-  
+
+  const onAddToHead = async () => {
+    setIsLoading({ ...isLoading, addToHead: true, disabled: true });
+    list.addToHead(inputValue);
+    if (arr.length > 0) {
+      arr[0].Element = {
+        value: inputValue,
+        state: ElementStates.Changing,
+        position: "add",
+      };
+    }
+    setArr([...arr]);
+    await delay(500);
+    arr[0].Element = null;
+    arr.unshift({
+      ...arr[0],
+      value: inputValue,
+      state: ElementStates.Modified,
+    });
+    setArr([...arr]);
+    await delay(500);
+    arr[0].state = ElementStates.Default;
+    setArr([...arr]);
+    setIsLoading({ ...isLoading, addToHead: false, disabled: false });
+    setInputValue("");
+  };
+
+  const onAddToTail = async () => {
+    setInputValue("");
+    setIsLoading({ ...isLoading, addToTail: true, disabled: true });
+    list.addToTail(inputValue);
+    arr[arr.length - 1] = {
+      ...arr[arr.length - 1],
+      Element: {
+        value: inputValue,
+        state: ElementStates.Changing,
+        position: "add",
+      },
+    };
+    setArr([...arr]);
+    await delay(500);
+    arr[arr.length - 1] = {
+      ...arr[arr.length - 1],
+      Element: null,
+    };
+
+    arr.push({
+      value: inputValue,
+      state: ElementStates.Modified,
+      Element: null,
+    });
+    setArr([...arr]);
+    await delay(500);
+    arr[arr.length - 1].state = ElementStates.Default;
+    setArr([...arr]);
+    setIsLoading({ ...isLoading, addToTail: false, disabled: false });
+  };
 
   return (
     <SolutionLayout title="Связный список">

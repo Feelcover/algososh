@@ -10,10 +10,20 @@ export default class List<T> implements IList<T> {
     this.size = 0;
     this.head = null;
     this.tail = null;
-    arr?.forEach((el) => this.addToHead(el));
+    arr?.forEach((el) => this.addToTail(el));
   }
 
-  addToHead(el: T) {
+
+  addToHead(el: T): void {
+    const node = new Node(el, this.head);
+    this.head = node;
+    if (!this.tail) {
+      this.tail = node;
+    }
+    this.size++;
+  }
+
+  addToTail(el: T) {
     const node = new Node(el);
     let current = null;
 
@@ -31,14 +41,6 @@ export default class List<T> implements IList<T> {
     this.size++;
   }
 
-  addToTail(el: T): void {
-    const node = new Node(el, this.head);
-    this.head = node;
-    if (!this.tail) {
-      this.tail = node;
-    }
-    this.size++;
-  }
 
   deleteInHead() {
     if (this.head) {
@@ -60,7 +62,6 @@ export default class List<T> implements IList<T> {
     }
     this.size--;
   }
-
 
   addByIndex(el: T, index: number) {
     if (index < 0) {
@@ -84,7 +85,6 @@ export default class List<T> implements IList<T> {
       }
     }
   }
-
 
   deleteByIndex(index: number) {
     if (index < 0 || index > this.size) {
