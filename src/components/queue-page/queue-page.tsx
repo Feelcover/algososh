@@ -1,4 +1,5 @@
-import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
+import React, { FormEvent, MouseEvent, useMemo, useState } from "react";
+import { useForm } from "../../hooks/useForm";
 import { ElementStates } from "../../types/element-states";
 import { delay } from "../../utils/delay";
 import { Button } from "../ui/button/button";
@@ -13,42 +14,48 @@ export const QueuePage: React.FC = () => {
   const queue = useMemo(() => {
     return new Queue<string>(size);
   }, []);
-
+  const { inputValue, handleChangeInput, setInputValue } = useForm("");
   const [current, setCurrent] = useState<number>(-1);
   const [arr, setArr] = useState(queue.getElements());
-  const [isLoading, setIsLoading] = useState<any>({
+  const [isLoading, setIsLoading] = useState({
     isAdd: false,
     isRemove: false,
     isClear: false,
     disabled: false,
   });
 
-  const [inputValue, setInputValue] = useState("");
-  const handleChangeInput = (evt: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(evt.target.value);
-  };
-
-  const onEnqueue = async () => {
-    setIsLoading({
-      ...isLoading,
-      isAdd: true,
-      disabled: true,
-    });
-    queue.enqueue(inputValue);
-    setInputValue("");
-    setArr([...queue.getElements()]);
-    setCurrent(queue.getTail() % queue.getSize());
-    await delay(500);
-    setCurrent(-1);
-    await delay(500);
-    setIsLoading({
-      ...isLoading,
-      isAdd: false,
-      disabled: false,
-    });
+  const onEnqueue = async (
+    evt: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>
+  ) => {
+    evt.preventDefault();
+    if (
+      !queue.getFull() &&
+      inputValue.length > 0 &&
+      queue.getTail() !== size &&
+      !isLoading.disabled
+    ) {
+      setIsLoading({
+        ...isLoading,
+        isAdd: true,
+        disabled: true,
+      });
+      queue.enqueue(inputValue);
+      setInputValue("");
+      setArr([...queue.getElements()]);
+      setCurrent(queue.getTail() % queue.getSize());
+      await delay(500);
+      setCurrent(-1);
+      await delay(500);
+      setIsLoading({
+        ...isLoading,
+        isAdd: false,
+        disabled: false,
+      });
+    }
   };
 
   const onDequeue = async () => {
+    const checkLast = queue.getElements()
     setIsLoading({
       ...isLoading,
       isRemove: true,
@@ -62,6 +69,9 @@ export const QueuePage: React.FC = () => {
       setCurrent(-1);
       await delay(500);
     }
+    if (checkLast[5] == undefined && checkLast[6] !== undefined) {
+      onClear()
+    }
     setIsLoading({
       ...isLoading,
       isRemove: false,
@@ -69,12 +79,13 @@ export const QueuePage: React.FC = () => {
     });
   };
 
-  const onClear = () => {
+  const onClear = async () => {
     setIsLoading({
       ...isLoading,
       isClear: true,
       disabled: true,
     });
+    await delay(500);
     queue.clear();
     setArr(queue.getElements());
     setIsLoading({
@@ -84,35 +95,30 @@ export const QueuePage: React.FC = () => {
     });
   };
 
-  useEffect(() => {
-    function handleEnterKeydown(evt: KeyboardEvent) {
-      if (evt.key === "Enter" && inputValue.length > 0) {
-        onEnqueue();
-      }
-    }
-    document.addEventListener("keydown", handleEnterKeydown);
-    return () => {
-      document.removeEventListener("keydown", handleEnterKeydown);
-    };
-  }, [inputValue]);
-
   return (
     <SolutionLayout title="Очередь">
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={(evt) => onEnqueue(evt)}>
         <div className={styles.container}>
           <Input
             onChange={handleChangeInput}
             value={inputValue}
             maxLength={4}
             isLimitText={true}
-            disabled={isLoading.disabled}
+            disabled={
+              isLoading.disabled ||
+              queue.getFull() ||
+              queue.getTail() === size
+            }
           />
           <Button
             text="Добавить"
             isLoader={isLoading.isAdd}
             onClick={onEnqueue}
             disabled={
-              !inputValue || queue.getTail() === size || isLoading.disabled
+              !inputValue ||
+              queue.getTail() === size ||
+              isLoading.disabled ||
+              queue.getFull()
             }
           />
           <Button

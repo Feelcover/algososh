@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
+import React, {
+  FormEvent,
+  MouseEvent,
+  useMemo,
+  useState,
+} from "react";
+import { useForm } from "../../hooks/useForm";
 import { ElementStates } from "../../types/element-states";
 import { delay } from "../../utils/delay";
 import { Button } from "../ui/button/button";
@@ -15,63 +21,81 @@ export const StackPage: React.FC = () => {
 
   const [arr, setArr] = useState<string[]>([]);
   const [status, setStatus] = useState<ElementStates>(ElementStates.Default);
+  const [isLoading, setIsLoading] = useState({
+    isAdd: false,
+    isDelete: false,
+    isClear: false,
+    disabled: false,
+  });
+  const { inputValue, handleChangeInput, setInputValue } = useForm("");
 
-  const [inputValue, setInputValue] = useState<string>("");
-  const handleChangeInput = (evt: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(evt.target.value);
-  };
-
-  const onClickAdd = async () => {
-    stack.push(inputValue);
-    setInputValue("");
-    await delay(500);
-    setStatus(ElementStates.Changing);
-    setArr([...stack.get()]);
-    await delay(500);
-    setStatus(ElementStates.Default);
-    setArr([...stack.get()]);
+  const onClickAdd = async (
+    evt: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>
+  ) => {
+    evt.preventDefault();
+    if (!isLoading.disabled && inputValue.length > 0) {
+      setIsLoading({ ...isLoading, isAdd: true, disabled: true });
+      stack.push(inputValue);
+      setInputValue("");
+      await delay(500);
+      setStatus(ElementStates.Changing);
+      setArr([...stack.get()]);
+      await delay(500);
+      setStatus(ElementStates.Default);
+      setArr([...stack.get()]);
+      setIsLoading({ ...isLoading, isAdd: false, disabled: false });
+    }
   };
 
   const onClickDelete = async () => {
+    setIsLoading({ ...isLoading, isDelete: true, disabled: true });
     setStatus(ElementStates.Changing);
     setArr([...stack.get()]);
     await delay(500);
     stack.delete();
     setStatus(ElementStates.Default);
     setArr([...stack.get()]);
+    setIsLoading({ ...isLoading, isDelete: false, disabled: false });
   };
 
-  const onClickClear = () => {
+  const onClickClear = async () => {
+    setIsLoading({ ...isLoading, isClear: true, disabled: true });
+    await delay(500);
     stack.clear();
     setArr([]);
+    setIsLoading({ ...isLoading, isClear: false, disabled: false });
   };
-
-  useEffect(() => {
-    function handleEnterKeydown(evt: KeyboardEvent) {
-      if (evt.key === "Enter" && inputValue.length > 0) {
-        onClickAdd();
-      }
-    }
-    document.addEventListener("keydown", handleEnterKeydown);
-    return () => {
-      document.removeEventListener("keydown", handleEnterKeydown);
-    };
-  }, [inputValue]);
 
   return (
     <SolutionLayout title="Стек">
       <div className={styles.container}>
-        <div className={styles.form}>
+        <form className={styles.form} onSubmit={(evt) => onClickAdd(evt)}>
           <Input
             onChange={handleChangeInput}
             isLimitText={true}
             maxLength={4}
             value={inputValue}
+            disabled={arr.length > 7}
           />
-          <Button text="Добавить" disabled={!inputValue} onClick={onClickAdd} />
-          <Button text="Удалить" disabled={!arr} onClick={onClickDelete} />
-        </div>
-        <Button text="Очистить" disabled={!arr} onClick={onClickClear} />
+          <Button
+            text="Добавить"
+            disabled={!inputValue || isLoading.disabled}
+            onClick={onClickAdd}
+            isLoader={isLoading.isAdd}
+          />
+          <Button
+            text="Удалить"
+            disabled={arr.length < 1 || isLoading.disabled}
+            onClick={onClickDelete}
+            isLoader={isLoading.isDelete}
+          />
+        </form>
+        <Button
+          text="Очистить"
+          disabled={arr.length < 1 || isLoading.disabled}
+          onClick={onClickClear}
+          isLoader={isLoading.isClear}
+        />
       </div>
       <div className={styles.elements}>
         {stack.get().map((item, index) => {

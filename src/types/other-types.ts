@@ -5,12 +5,6 @@ export type TStringArr = {
   color: ElementStates;
 };
 
-export type TSortLoader = {
-  ASC: boolean;
-  DSC: boolean;
-  Loader:boolean;
-};
-
 export type TSortArr = {
   number: number;
   state: ElementStates;

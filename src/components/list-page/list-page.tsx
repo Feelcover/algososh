@@ -1,4 +1,11 @@
-import React, { ChangeEvent, useMemo, useState } from "react";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  MouseEvent,
+  useMemo,
+  useState,
+} from "react";
+import { useForm, useFormIndex } from "../../hooks/useForm";
 import { ElementStates } from "../../types/element-states";
 import { TList } from "../../types/other-types";
 import { delay } from "../../utils/delay";
@@ -12,8 +19,8 @@ import List from "./listClass";
 
 const initialArray = ["85", "13", "34", "7"];
 const list = new List<string>(initialArray);
-const maxLength = 1;
-const maxIndex = 9;
+const maxLength = 4;
+const maxIndex = 7;
 
 export const ListPage: React.FC = () => {
   const listArr: TList[] = initialArray.map((item) => ({
@@ -32,15 +39,9 @@ export const ListPage: React.FC = () => {
     disabled: false,
   });
 
-  const [inputValue, setInputValue] = useState<string>("");
-  const [inputIndex, setInputIndex] = useState<number>(1);
-
-  const handleChangeInputValue = (evt: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(evt.target.value);
-  };
-  const handleChangeInputIndex = (evt: ChangeEvent<HTMLInputElement>) => {
-    setInputIndex(Number(evt.target.value));
-  };
+  const { inputValue, handleChangeInput, setInputValue } = useForm("");
+  const { inputIndex, handleChangeInputIndex, setInputIndex } = useFormIndex(0);
+  const inputIndexNum = String(inputIndex);
 
   const onAddToHead = async () => {
     setIsLoading({ ...isLoading, addToHead: true, disabled: true });
@@ -226,13 +227,16 @@ export const ListPage: React.FC = () => {
   return (
     <SolutionLayout title="Связный список">
       <div className={styles.container}>
-        <form className={styles.upForm} onSubmit={(e) => e.preventDefault()}>
+        <form
+          className={styles.upForm}
+          onSubmit={(evt) => evt.preventDefault()}
+        >
           <Input
-            onChange={handleChangeInputValue}
+            onChange={handleChangeInput}
             extraClass={styles.input}
             placeholder="Введите значение"
             value={inputValue}
-            maxLength={4}
+            maxLength={maxLength}
             isLimitText={true}
             disabled={isLoading.disabled}
           />
@@ -259,24 +263,30 @@ export const ListPage: React.FC = () => {
             text="Удалить из head"
             type="button"
             isLoader={isLoading.deleteInHead}
-            disabled={isLoading.disabled || arr.length <= 1}
+            disabled={
+              isLoading.disabled || arr.length <= 1 || isLoading.deleteInHead
+            }
           />
           <Button
             onClick={onDeleteInTail}
             text="Удалить из tail"
             type="button"
-            disabled={isLoading.deleteInTail || arr.length <= 1}
-            isLoader={isLoading.disabled}
+            disabled={
+              isLoading.deleteInTail || arr.length <= 1 || isLoading.disabled
+            }
+            isLoader={isLoading.deleteInTail}
           />
         </form>
 
-        <form className={styles.downForm} onSubmit={(e) => e.preventDefault()}>
+        <form
+          className={styles.downForm}
+          onSubmit={(evt) => evt.preventDefault()}
+        >
           <Input
             onChange={handleChangeInputIndex}
             placeholder="Введите индекс"
             min={0}
             max={maxIndex}
-            maxLength={maxLength}
             type="number"
             value={inputIndex}
             disabled={isLoading.disabled}

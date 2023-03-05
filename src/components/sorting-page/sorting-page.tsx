@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { ElementStates } from "../../types/element-states";
-import { TSortArr, TSortLoader } from "../../types/other-types";
+import { TSortArr } from "../../types/other-types";
 import { delay } from "../../utils/delay";
 import { swap } from "../../utils/swap";
 import { Button } from "../ui/button/button";
@@ -12,9 +12,10 @@ import styles from "./sorting-page.module.css";
 
 export const SortingPage: React.FC = () => {
   const [arr, setArr] = useState<Array<TSortArr>>([]);
-  const [isLoading, setIsLoading] = useState<TSortLoader>({
+  const [isLoading, setIsLoading] = useState({
     ASC: false,
     DSC: false,
+    newArr:false,
     Loader: false,
   });
 
@@ -24,7 +25,7 @@ export const SortingPage: React.FC = () => {
   };
 
   const selectSort = async (ascOrDsc: boolean) => {
-    setIsLoading({ ASC: ascOrDsc, DSC: !ascOrDsc, Loader: true });
+    setIsLoading({...isLoading, ASC: ascOrDsc, DSC: !ascOrDsc, Loader: true });
     const sortArr = arr.slice();
     const { length } = sortArr;
 
@@ -55,11 +56,11 @@ export const SortingPage: React.FC = () => {
       setArr([...sortArr]);
       await delay(500);
     }
-    setIsLoading({ ASC: false, DSC: false, Loader: false });
+    setIsLoading({...isLoading, ASC: false, DSC: false, Loader: false });
   };
 
   const bubbleSort = async (ascOrDsc: boolean) => {
-    setIsLoading({ ASC: ascOrDsc, DSC: !ascOrDsc, Loader: true });
+    setIsLoading({...isLoading, ASC: ascOrDsc, DSC: !ascOrDsc, Loader: true });
     const sortArr = arr.slice();
     const { length } = sortArr;
     for (let i = 0; i < length; i++) {
@@ -89,10 +90,12 @@ export const SortingPage: React.FC = () => {
       setArr([...sortArr]);
       await delay(500);
     }
-    setIsLoading({ ASC: false, DSC: false, Loader: false });
+    setIsLoading({...isLoading, ASC: false, DSC: false, Loader: false });
   };
 
-  const handleCreateArr = () => {
+  const handleCreateArr = async() => {
+    setIsLoading({ ...isLoading, newArr: true });
+    await delay(500)
     const newArr = randomSortArr();
     const sortArr = newArr.map((number) => {
       return {
@@ -101,6 +104,8 @@ export const SortingPage: React.FC = () => {
       };
     });
     setArr(sortArr);
+    setIsLoading({ ...isLoading, newArr: false });
+
   };
 
   const onClickSort = (ascOrDsc: boolean) => {
@@ -147,6 +152,7 @@ export const SortingPage: React.FC = () => {
               maxLength={17}
               disabled={isLoading.Loader}
               onClick={handleCreateArr}
+              isLoader={isLoading.newArr}
             />
           </div>
         </div>

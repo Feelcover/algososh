@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { FormEvent, MouseEvent, useState } from "react";
 import { ElementStates } from "../../types/element-states";
 import { TStringArr } from "../../types/other-types";
 import { delay } from "../../utils/delay";
@@ -8,17 +8,12 @@ import { Input } from "../ui/input/input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import styles from "./string-page.module.css";
 import { swap } from "../../utils/swap";
-
+import { useForm } from "../../hooks/useForm";
 
 export const StringPage: React.FC = () => {
   const [arr, setArr] = useState<Array<TStringArr>>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const [inputValue, setInputValue] = useState<string>("");
-  const handleChangeInput = (evt: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(evt.target.value);
-  };
-
+  const { inputValue, handleChangeInput, setInputValue } = useForm("");
 
   const stringReverse = async (arr: TStringArr[]) => {
     setIsLoading(true);
@@ -40,45 +35,39 @@ export const StringPage: React.FC = () => {
     setIsLoading(false);
   };
 
-  const onClickReverse = () => {
-    const arr = inputValue.split("").map((value) => ({ value, color: ElementStates.Default }));
-    stringReverse(arr);
-    setInputValue('');
-  };
-
-  useEffect(() => {
-    function handleEnterKeydown(evt: KeyboardEvent) {
-      if (evt.key === "Enter" && inputValue.length >= 2) {
-        evt.preventDefault()
-        onClickReverse()
-      }
+  const onClickReverse = (
+    evt: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>
+  ) => {
+    evt.preventDefault();
+    if (!isLoading && inputValue.length > 0) {
+      const arr = inputValue
+        .split("")
+        .map((value) => ({ value, color: ElementStates.Default }));
+      stringReverse(arr);
+      setInputValue("");
     }
-    document.addEventListener("keydown", handleEnterKeydown);
-    return () => {
-      document.removeEventListener("keydown", handleEnterKeydown);
-    };
-  }, [inputValue]);
-
+  };
 
   return (
     <SolutionLayout title="Строка">
       <div className={styles.container}>
-        <div className={styles.form}>
+        <form className={styles.form} onSubmit={(evt) => onClickReverse(evt)}>
           <Input
             maxLength={11}
             onChange={handleChangeInput}
             extraClass={styles.input}
             isLimitText={true}
             value={inputValue}
+            disabled={isLoading}
           />
           <Button
             text="Развернуть"
-            onClick={onClickReverse}
+            onClick={(evt) => onClickReverse(evt)}
             extraClass={styles.button}
             isLoader={isLoading}
-            disabled={!inputValue || inputValue.length < 2}
+            disabled={!inputValue || inputValue.length < 2 || isLoading}
           />
-        </div>
+        </form>
         <ul className={styles.elements}>
           {arr.map((item, index) => {
             return (

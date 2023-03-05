@@ -29,6 +29,14 @@ export class Queue<T> implements IQueue<T> {
 
   getTail = () => this.tail;
 
+  getFull = () => {
+   if (this.length >= this.size) {
+      return true
+    }else{
+      return false
+    }
+  }
+
   enqueue = (item: T) => {
     if (this.length >= this.size) {
       console.log(new Error("Максимальная длинна очереди достигнута"));
