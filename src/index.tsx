@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import "./fonts/fonts.css";
@@ -6,11 +5,12 @@ import "./components/ui/common.css";
 import "./components/ui/box.css";
 import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter as Router } from "react-router-dom";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Router basename={window.location.pathname || ''}>
     <App />
-  </React.StrictMode>,
+  </Router>,
   document.getElementById("root")
 );
 
