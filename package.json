@@ -31,7 +31,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "cypress:open": "./node_modules/.bin/cypress open"
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -55,6 +55,6 @@
     "@types/react-router-dom": "^5.3.3",
     "gh-pages": "^5.0.0",
     "cypress": "^11.2.0",
-    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-cypress": "^2.12.1"
   }
 }
