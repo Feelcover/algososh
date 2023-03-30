@@ -66,7 +66,7 @@ export const StringPage: React.FC = () => {
             onClick={(evt) => onClickReverse(evt)}
             extraClass={styles.button}
             isLoader={isLoading}
-            disabled={!inputValue || inputValue.length < 2 || isLoading}
+            disabled={!inputValue || inputValue.length < 1 || isLoading}
             data-testid="button"
           />
         </form>

@@ -5,7 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 
 const testEvenString = "helloworld";
 const testOddString = "hello";
-const testOneString = "h";
+const testOneString = "w";
 
 
 describe("Корректный разворот строки", () => {
@@ -21,11 +21,16 @@ describe("Корректный разворот строки", () => {
 
     userEvent.type(input, testEvenString);
     expect(input).toHaveValue(testEvenString);
-        userEvent.click(button)
-    await waitFor(() => {
-      const circles = screen.getAllByTestId("testCircle").map((item) => item.textContent);
-      expect(circles.join("")).toBe(Array(testEvenString).reverse().join(""));
-    }, { timeout: 1000 });
+    userEvent.click(button);
+    await waitFor(
+      () => {
+        const circles = screen
+          .getAllByTestId("testCircle")
+          .map((item) => item.textContent);
+        expect(circles.join("")).toBe(Array(testEvenString).reverse().join(""));
+      },
+      { timeout: 1000 }
+    );
   });
 
   it("с нечётным количеством символов", async () => {
@@ -40,11 +45,16 @@ describe("Корректный разворот строки", () => {
 
     userEvent.type(input, testOddString);
     expect(input).toHaveValue(testOddString);
-        userEvent.click(button)
-    await waitFor(() => {
-      const circles = screen.getAllByTestId("testCircle").map((item) => item.textContent);
-      expect(circles.join("")).toBe(Array(testOddString).reverse().join(""));
-    }, { timeout: 1000 });
+    userEvent.click(button);
+    await waitFor(
+      () => {
+        const circles = screen
+          .getAllByTestId("testCircle")
+          .map((item) => item.textContent);
+        expect(circles.join("")).toBe(Array(testOddString).reverse().join(""));
+      },
+      { timeout: 1000 }
+    );
   });
 
   it("с одним символом", async () => {
@@ -56,13 +66,31 @@ describe("Корректный разворот строки", () => {
 
     const input = screen.getByTestId("input");
     const button = screen.getByTestId("button");
-
     userEvent.type(input, testOneString);
     expect(input).toHaveValue(testOneString);
-    userEvent.click(button)
-    await waitFor(() => {
-      const circles = screen.getAllByTestId("testCircle").map((item) => item.textContent);
-      expect(circles.join("")).toBe(testOneString);
-    }, { timeout: 1000 });
+    screen.debug()
+    fireEvent.click(button);
+    await waitFor(
+      () => {
+        const circles = screen
+          .getAllByTestId("testCircle")
+          .map((item) => item.textContent);
+        expect(circles.join('')).toBe(testOneString)
+      },
+      { timeout: 1000 }
+    );
+  });
+
+  it("с пустой строкой", async () => {
+    render(
+      <MemoryRouter>
+        <StringPage />
+      </MemoryRouter>
+    );
+
+    const input = screen.getByTestId("input");
+    const button = screen.getByTestId("button");
+    expect(input).toHaveValue('');
+    expect(button).toBeDisabled()
   });
 });
