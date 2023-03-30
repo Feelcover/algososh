@@ -31,6 +31,8 @@ describe("Корректный разворот строки", () => {
       },
       { timeout: 1000 }
     );
+    expect(input).toHaveValue('');
+    expect(button).toBeDisabled();
   });
 
   it("с нечётным количеством символов", async () => {
@@ -56,6 +58,8 @@ describe("Корректный разворот строки", () => {
       },
       { timeout: 1000 }
     );
+    expect(input).toHaveValue('');
+    expect(button).toBeDisabled();
   });
 
   it("с одним символом", async () => {
@@ -81,6 +85,8 @@ describe("Корректный разворот строки", () => {
       },
       { timeout: 500 }
     );
+    expect(input).toHaveValue('');
+    expect(button).toBeDisabled();
   });
 
   it("с пустой строкой", async () => {
@@ -93,6 +99,6 @@ describe("Корректный разворот строки", () => {
     const input = screen.getByTestId("input");
     const button = screen.getByTestId("button");
     expect(input).toHaveValue('');
-    expect(button).toBeDisabled()
+    expect(button).toBeDisabled();
   });
 });
