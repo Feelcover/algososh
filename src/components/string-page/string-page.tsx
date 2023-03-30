@@ -59,6 +59,7 @@ export const StringPage: React.FC = () => {
             isLimitText={true}
             value={inputValue}
             disabled={isLoading}
+            data-testid="input"
           />
           <Button
             text="Развернуть"
@@ -66,12 +67,18 @@ export const StringPage: React.FC = () => {
             extraClass={styles.button}
             isLoader={isLoading}
             disabled={!inputValue || inputValue.length < 2 || isLoading}
+            data-testid="button"
           />
         </form>
         <ul className={styles.elements}>
           {arr.map((item, index) => {
             return (
-              <Circle key={index} letter={item.value} state={item.color} />
+              <Circle
+                key={index}
+                letter={item.value}
+                state={item.color}
+                data-testid={"testCircle"}
+              />
             );
           })}
         </ul>
