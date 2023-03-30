@@ -5,7 +5,6 @@ import { MemoryRouter } from "react-router-dom";
 
 const testEvenString = "helloworld";
 const testOddString = "hello";
-const testOneString = "w";
 
 
 describe("Корректный разворот строки", () => {
@@ -20,6 +19,7 @@ describe("Корректный разворот строки", () => {
     const button = screen.getByTestId("button");
 
     userEvent.type(input, testEvenString);
+    expect(button).toBeEnabled()
     expect(input).toHaveValue(testEvenString);
     userEvent.click(button);
     await waitFor(
@@ -44,6 +44,7 @@ describe("Корректный разворот строки", () => {
     const button = screen.getByTestId("button");
 
     userEvent.type(input, testOddString);
+    expect(button).toBeEnabled()
     expect(input).toHaveValue(testOddString);
     userEvent.click(button);
     await waitFor(
@@ -66,8 +67,9 @@ describe("Корректный разворот строки", () => {
 
     const input = screen.getByTestId("input");
     const button = screen.getByTestId("button");
-    userEvent.type(input, testOneString);
-    expect(input).toHaveValue(testOneString);
+    userEvent.type(input, 'q');
+    expect(button).toBeEnabled()
+    expect(input).toHaveValue('q');
     screen.debug()
     fireEvent.click(button);
     await waitFor(
@@ -75,9 +77,9 @@ describe("Корректный разворот строки", () => {
         const circles = screen
           .getAllByTestId("testCircle")
           .map((item) => item.textContent);
-        expect(circles.join('')).toBe(testOneString)
+        expect(circles.join('')).toBe('q')
       },
-      { timeout: 1000 }
+      { timeout: 500 }
     );
   });
 
