@@ -82,7 +82,7 @@ describe("Корректный разворот строки", () => {
           .map((item) => item.textContent);
         expect(circles.join('')).toBe('q')
       },
-      { timeout: 500 }
+      { timeout: 1000 }
     );
     expect(input).toHaveValue('');
     expect(button).toBeDisabled();

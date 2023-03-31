@@ -1,9 +1,10 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { SortingPage } from "./sorting-page";
 
 describe("Корректная работа сортировки", () => {
-  it("Пустой массив", async () => {
+  it("Пустой массив", () => {
     render(
       <MemoryRouter>
         <SortingPage />
@@ -19,5 +20,23 @@ describe("Корректная работа сортировки", () => {
     expect(dscButton).toBeDisabled();
   });
 
+  it("Массив из одного элемента", async () => {
+    render(
+      <MemoryRouter>
+        <SortingPage />
+      </MemoryRouter>
+    );
+    const oneElementArrButton = screen.getByTestId("testOneElementArr")
+    const ascButton = screen.getByTestId("testASC");
+    const dscButton = screen.getByTestId("testDSC");
+    userEvent.click(oneElementArrButton)
+    screen.debug();
+    await waitFor(() => {
+        const column = screen.getByTestId("testColumn");
+      expect(column).toBeInTheDocument();
+    },{timeout: 2000});
+    expect(ascButton).toBeDisabled();
+    expect(dscButton).toBeDisabled();
+  });
 
 });
