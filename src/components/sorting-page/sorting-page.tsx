@@ -15,11 +15,13 @@ export const SortingPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState({
     ASC: false,
     DSC: false,
-    newArr:false,
+    newArrLoader:false,
     Loader: false,
   });
 
   const [selected, setSelected] = useState<string>("select");
+  const newArr:number[] = randomSortArr();
+  
   const handleSelectSort = (evt: ChangeEvent<HTMLInputElement>) => {
     setSelected((evt.target as HTMLInputElement).value);
   };
@@ -92,11 +94,10 @@ export const SortingPage: React.FC = () => {
     }
     setIsLoading({...isLoading, ASC: false, DSC: false, Loader: false });
   };
-
+  
   const handleCreateArr = async() => {
-    setIsLoading({ ...isLoading, newArr: true });
+    setIsLoading({ ...isLoading, newArrLoader: true });
     await delay(500)
-    const newArr = randomSortArr();
     const sortArr = newArr.map((number) => {
       return {
         number,
@@ -104,7 +105,7 @@ export const SortingPage: React.FC = () => {
       };
     });
     setArr(sortArr);
-    setIsLoading({ ...isLoading, newArr: false });
+    setIsLoading({ ...isLoading, newArrLoader: false });
 
   };
 
@@ -152,7 +153,7 @@ export const SortingPage: React.FC = () => {
               maxLength={17}
               disabled={isLoading.Loader}
               onClick={handleCreateArr}
-              isLoader={isLoading.newArr}
+              isLoader={isLoading.newArrLoader}
             />
           </div>
         </div>
