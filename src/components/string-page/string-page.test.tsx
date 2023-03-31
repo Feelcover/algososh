@@ -2,9 +2,14 @@ import { StringPage } from "./string-page";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
+import { delay } from "../../utils/delay";
 
-const testEvenString = "helloworld";
-const testOddString = "hello";
+const testEvenString = "1234";
+const testEvenReversedString = "4321";
+
+const testOddString = "12345";
+const testOddReversedString = "54321";
+
 
 
 describe("Корректный разворот строки", () => {
@@ -22,12 +27,16 @@ describe("Корректный разворот строки", () => {
     expect(button).toBeEnabled()
     expect(input).toHaveValue(testEvenString);
     userEvent.click(button);
+    await delay(500)
     await waitFor(
       () => {
         const circles = screen
           .getAllByTestId("testCircle")
-          .map((item) => item.textContent);
-        expect(circles.join("")).toBe(Array(testEvenString).reverse().join(""));
+          .map((item) => item.textContent);  
+          console.log(circles.join(""));
+                  
+        expect(circles.join("")).toBe(testEvenReversedString);
+
       },
       { timeout: 1000 }
     );
@@ -49,12 +58,13 @@ describe("Корректный разворот строки", () => {
     expect(button).toBeEnabled()
     expect(input).toHaveValue(testOddString);
     userEvent.click(button);
+    await delay(500)
     await waitFor(
       () => {
         const circles = screen
           .getAllByTestId("testCircle")
           .map((item) => item.textContent);
-        expect(circles.join("")).toBe(Array(testOddString).reverse().join(""));
+        expect(circles.join("")).toEqual(testOddReversedString);
       },
       { timeout: 1000 }
     );

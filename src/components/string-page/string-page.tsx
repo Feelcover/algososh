@@ -25,7 +25,7 @@ export const StringPage: React.FC = () => {
         arr[i].color = ElementStates.Changing;
         arr[j].color = ElementStates.Changing;
         setArr([...arr]);
-        await delay(1000);
+        await delay(500);
       }
       swap(arr, i, j);
       arr[i].color = ElementStates.Modified;
