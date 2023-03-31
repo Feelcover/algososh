@@ -15,7 +15,7 @@ describe("Корректная работа Button", () => {
     const button = TestRenderer.create(<Button disabled />).toJSON();
     expect(button).toMatchSnapshot();
   });
-  it("Button disabled", () => {
+  it("Button состояния загрузки", () => {
     const button = TestRenderer.create(<Button isLoader = {true} />).toJSON();
     expect(button).toMatchSnapshot();
   });

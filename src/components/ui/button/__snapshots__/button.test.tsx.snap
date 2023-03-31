@@ -25,7 +25,18 @@ exports[`Корректная работа Button Button disabled 1`] = `
 </button>
 `;
 
-exports[`Корректная работа Button Button disabled 2`] = `
+exports[`Корректная работа Button Button без текста 1`] = `
+<button
+  className="text text_type_button text_color_primary button undefined false "
+  type="button"
+>
+  <p
+    className="text undefined"
+  />
+</button>
+`;
+
+exports[`Корректная работа Button Button состояния загрузки 1`] = `
 <button
   className="text text_type_button text_color_primary button undefined loader "
   disabled={true}
@@ -35,17 +46,6 @@ exports[`Корректная работа Button Button disabled 2`] = `
     alt="Загрузка."
     className="loader_icon"
     src="loader.svg"
-  />
-</button>
-`;
-
-exports[`Корректная работа Button Button без текста 1`] = `
-<button
-  className="text text_type_button text_color_primary button undefined false "
-  type="button"
->
-  <p
-    className="text undefined"
   />
 </button>
 `;
