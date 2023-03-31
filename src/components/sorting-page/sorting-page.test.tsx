@@ -36,9 +36,7 @@ describe("Корректная работа сортировки", () => {
     await waitFor(
       () => {
         const column = screen.getByTestId("testColumn");
-        //Здесь индекс, который кладем в testOneElementArr в поле number
         console.log(column.innerHTML);
-        //Проверяем, что элемент массива содержит только один элемент
         expect(column).toBeInTheDocument();
       },
       { timeout: 1000 }
