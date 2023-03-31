@@ -1,29 +1,14 @@
 import {
   fireEvent,
-  getAllByLabelText,
-  getByLabelText,
   render,
   screen,
   waitFor,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
-import { ElementStates } from "../../types/element-states";
 import { SortingPage } from "./sorting-page";
+import { oneElementForSort } from "./sorting-page-utils";
 
-export const oneElementForSort = [{ number: 18, state: ElementStates.Default }];
-export const elementsForSort = [
-  { number: 28, state: ElementStates.Default },
-  { number: 100, state: ElementStates.Default },
-  { number: 2, state: ElementStates.Default },
-  { number: 10, state: ElementStates.Default }
-];
-export const sorted = [
-    { number: 2, state: ElementStates.Default },
-    { number: 10, state: ElementStates.Default },
-    { number: 28, state: ElementStates.Default },
-    { number: 100, state: ElementStates.Default }
-  ];
 
 describe("Корректная работа сортировки", () => {
   it("Пустой массив", () => {
@@ -97,5 +82,29 @@ describe("Корректная работа сортировки", () => {
     expect(column.innerHTML).toEqual(`${`${oneElementForSort[0].number}`}`);
   });
 
+//   it("Массив из нескольких элементов выбором по возрастанию", async () => {
+//     render(
+//       <MemoryRouter>
+//         <SortingPage />
+//       </MemoryRouter>
+//     );
+//     const elementsArrButton = screen.getByTestId("testElementsArr");
+//     const ascButton = screen.getByTestId("testASC");
+//     const choiceTestButton = screen.getByLabelText("Выбор");
+//     userEvent.click(choiceTestButton);
+//     expect(choiceTestButton).toBeChecked();
+//     fireEvent.click(elementsArrButton);
+//     userEvent.click(ascButton);
+//     await waitFor(
+//       () => {
+//         const column = screen.getByTestId("testColumn");
+//         console.log(column.innerHTML);
+//         expect(column).toBeInTheDocument();
+//       },
+//       { timeout: 1000 }
+//     );
+//     const column = screen.getByTestId("testColumn");
+//     expect(column.innerHTML).toEqual(`${oneElementForSort[0].number}`);
+//   });
 
 });

@@ -9,7 +9,7 @@ import { RadioInput } from "../ui/radio-input/radio-input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { randomSortArr } from "./sorting-page-utils";
 import styles from "./sorting-page.module.css";
-import { oneElementForSort } from "./sorting-page.test";
+import { elementsForSort, oneElementForSort } from ".//sorting-page-utils";
 
 export const SortingPage: React.FC = () => {
   const [arr, setArr] = useState<Array<TSortArr>>([]);
@@ -119,11 +119,11 @@ export const SortingPage: React.FC = () => {
     setArr(oneElementForSort);
   };
 
-    //Для теста c несколькими элементами в массиве
-    const testElementsArr = () => {
-      testEmptyArr();
-      setArr([{ number: 17, state: ElementStates.Default }]);
-    };
+  //Для теста c несколькими элементами в массиве
+  const testElementsArr = () => {
+    testEmptyArr();
+    setArr(elementsForSort);
+  };
 
   const onClickSort = (ascOrDsc: boolean) => {
     selected === "select" ? selectSort(ascOrDsc) : bubbleSort(ascOrDsc);
@@ -155,6 +155,11 @@ export const SortingPage: React.FC = () => {
               className={styles.testButton}
               data-testid="testOneElementArr"
               onClick={testOneElementArr}
+            />
+            <div
+              className={styles.testButton}
+              data-testid="testElementsArr"
+              onClick={testElementsArr}
             />
           </div>
 
