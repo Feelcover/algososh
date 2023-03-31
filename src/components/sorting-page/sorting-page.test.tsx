@@ -10,11 +10,12 @@ describe("Корректная работа сортировки", () => {
         <SortingPage />
       </MemoryRouter>
     );
-    const emptyArrButton = screen.getByTestId("testEmptyArr")
+    const emptyArrButton = screen.getByTestId("testEmptyArr");
     const column = screen.queryByTestId("testColumn");
     const ascButton = screen.getByTestId("testASC");
     const dscButton = screen.getByTestId("testDSC");
-    fireEvent.click(emptyArrButton)
+    fireEvent.click(emptyArrButton);
+    //Проверяем, что массив пустой и ничего не отрисовалось
     expect(column).toBeNull();
     expect(ascButton).toBeDisabled();
     expect(dscButton).toBeDisabled();
@@ -26,17 +27,21 @@ describe("Корректная работа сортировки", () => {
         <SortingPage />
       </MemoryRouter>
     );
-    const oneElementArrButton = screen.getByTestId("testOneElementArr")
+    const oneElementArrButton = screen.getByTestId("testOneElementArr");
     const ascButton = screen.getByTestId("testASC");
     const dscButton = screen.getByTestId("testDSC");
-    userEvent.click(oneElementArrButton)
-    screen.debug();
-    await waitFor(() => {
+    fireEvent.click(oneElementArrButton);
+    userEvent.click(ascButton);
+    userEvent.click(dscButton);
+    await waitFor(
+      () => {
         const column = screen.getByTestId("testColumn");
-      expect(column).toBeInTheDocument();
-    },{timeout: 2000});
-    expect(ascButton).toBeDisabled();
-    expect(dscButton).toBeDisabled();
+        //Здесь индекс, который кладем в testOneElementArr в поле number
+        console.log(column.innerHTML);
+        //Проверяем, что элемент массива содержит только один элемент
+        expect(column).toBeInTheDocument();
+      },
+      { timeout: 1000 }
+    );
   });
-
 });

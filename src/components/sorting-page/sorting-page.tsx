@@ -109,14 +109,15 @@ export const SortingPage: React.FC = () => {
   };
 
   //Для теста при пустом массиве
-  const testEmptyArr = async () => {
+  const testEmptyArr = () => {
     setArr([]);
   };
   //Для теста c одним элементом в массиве
-  const testOneElementArr = async () => {
+  const testOneElementArr = () => {
     testEmptyArr();
-    setArr([{ number: 20, state: ElementStates.Default }]);
+    setArr([{ number: 7, state: ElementStates.Default }]);
   };
+
 
   const onClickSort = (ascOrDsc: boolean) => {
     selected === "select" ? selectSort(ascOrDsc) : bubbleSort(ascOrDsc);
@@ -156,7 +157,7 @@ export const SortingPage: React.FC = () => {
             type="button"
             text="По возрастанию"
             isLoader={isLoading.ASC}
-            disabled={isLoading.Loader || arr.length <= 1}
+            disabled={isLoading.Loader || arr.length <= 0}
             onClick={() => onClickSort(true)}
           />
           <Button
@@ -164,7 +165,7 @@ export const SortingPage: React.FC = () => {
             type="button"
             text="По убыванию"
             isLoader={isLoading.DSC}
-            disabled={isLoading.Loader || arr.length <= 1}
+            disabled={isLoading.Loader || arr.length <= 0}
             onClick={() => onClickSort(false)}
           />
           <div className={styles.button}>
@@ -174,7 +175,7 @@ export const SortingPage: React.FC = () => {
               text="Новый массив"
               minLength={4}
               maxLength={17}
-              disabled={isLoading.Loader}
+              disabled={false}
               onClick={handleCreateArr}
               isLoader={isLoading.newArrLoader}
             />
