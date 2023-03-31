@@ -109,6 +109,11 @@ export const SortingPage: React.FC = () => {
 
   };
 
+  //Для теста при пустом массиве
+  const testEmptyArr = async() => {
+    setArr([]);
+  };
+
   const onClickSort = (ascOrDsc: boolean) => {
     selected === "select" ? selectSort(ascOrDsc) : bubbleSort(ascOrDsc);
   };
@@ -116,6 +121,8 @@ export const SortingPage: React.FC = () => {
   useEffect(() => {
     handleCreateArr();
   }, []);
+
+console.log(arr);
 
   return (
     <SolutionLayout title="Сортировка массива">
@@ -130,13 +137,15 @@ export const SortingPage: React.FC = () => {
               defaultChecked
             />
             <RadioInput label="Пузырёк" name="sorting-type" value="bubble" />
+            <div className={styles.testButton} data-testid='testEmptyArr' onClick={testEmptyArr}/>
           </div>
+         
           <Button
             data-testid='testASC'
             type="button"
             text="По возрастанию"
             isLoader={isLoading.ASC}
-            disabled={isLoading.Loader || newArr.length === 0}
+            disabled={isLoading.Loader || arr.length === 0}
             onClick={() => onClickSort(true)}
           />
           <Button
@@ -144,11 +153,12 @@ export const SortingPage: React.FC = () => {
             type="button"
             text="По убыванию"
             isLoader={isLoading.DSC}
-            disabled={isLoading.Loader || newArr.length === 0}
+            disabled={isLoading.Loader || arr.length === 0}
             onClick={() => onClickSort(false)}
           />
           <div className={styles.button}>
             <Button
+              data-testid='testNewArr'
               type="button"
               text="Новый массив"
               minLength={4}

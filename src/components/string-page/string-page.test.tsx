@@ -97,6 +97,8 @@ describe("Корректный разворот строки", () => {
 
     const input = screen.getByTestId("input");
     const button = screen.getByTestId("button");
+    const circles = screen.queryByTestId("testCircle")
+    expect(circles).toBeNull();
     expect(input).toHaveValue('');
     expect(button).toBeDisabled();
   });
