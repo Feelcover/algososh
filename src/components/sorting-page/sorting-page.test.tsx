@@ -15,7 +15,6 @@ describe("Корректная работа сортировки", () => {
     const ascButton = screen.getByTestId("testASC");
     const dscButton = screen.getByTestId("testDSC");
     fireEvent.click(emptyArrButton);
-    //Проверяем, что массив пустой и ничего не отрисовалось
     expect(column).toBeNull();
     expect(ascButton).toBeDisabled();
     expect(dscButton).toBeDisabled();
@@ -32,6 +31,7 @@ describe("Корректная работа сортировки", () => {
     const dscButton = screen.getByTestId("testDSC");
     fireEvent.click(oneElementArrButton);
     userEvent.click(ascButton);
+    fireEvent.click(oneElementArrButton);
     userEvent.click(dscButton);
     await waitFor(
       () => {
@@ -41,5 +41,7 @@ describe("Корректная работа сортировки", () => {
       },
       { timeout: 1000 }
     );
+    const column = screen.getByTestId("testColumn");
+    expect(column.innerHTML).toEqual("7");
   });
 });
