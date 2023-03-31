@@ -10,15 +10,16 @@ export const randomSortArr = () => {
   return sortArr;
 };
 
+//Тестовые массивы
+
 export const oneElementForSort = [{ number: 18, state: ElementStates.Default }];
 
 export const elementsForSort = [
+  { number: 105, state: ElementStates.Default },
   { number: 28, state: ElementStates.Default },
-  { number: 100, state: ElementStates.Default },
-  { number: 10, state: ElementStates.Default }
 ];
-export const sorted = [
-    { number: 10, state: ElementStates.Default },
-    { number: 28, state: ElementStates.Default },
-    { number: 100, state: ElementStates.Default }
-  ];
+
+// При больших массивах возникает проблема со временем тестов из за делеев
+export const sortedAsc = ["28", "105"];
+export const sortedDsc = ["105", "28"];
+

@@ -132,7 +132,7 @@ export const SortingPage: React.FC = () => {
   useEffect(() => {
     handleCreateArr();
   }, []);
-
+  
   return (
     <SolutionLayout title="Сортировка массива">
       <form className={styles.form}>

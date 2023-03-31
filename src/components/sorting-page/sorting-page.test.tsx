@@ -7,7 +7,9 @@ import {
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { SortingPage } from "./sorting-page";
-import { oneElementForSort } from "./sorting-page-utils";
+import { oneElementForSort, sortedAsc, sortedDsc } from "./sorting-page-utils";
+
+//Тестовые массивы находятся в sorting-page-utils.ts
 
 
 describe("Корректная работа сортировки", () => {
@@ -46,7 +48,6 @@ describe("Корректная работа сортировки", () => {
     await waitFor(
       () => {
         const column = screen.getByTestId("testColumn");
-        console.log(column.innerHTML);
         expect(column).toBeInTheDocument();
       },
       { timeout: 1000 }
@@ -73,7 +74,6 @@ describe("Корректная работа сортировки", () => {
     await waitFor(
       () => {
         const column = screen.getByTestId("testColumn");
-        console.log(column.innerHTML);
         expect(column).toBeInTheDocument();
       },
       { timeout: 1000 }
@@ -82,29 +82,92 @@ describe("Корректная работа сортировки", () => {
     expect(column.innerHTML).toEqual(`${`${oneElementForSort[0].number}`}`);
   });
 
-//   it("Массив из нескольких элементов выбором по возрастанию", async () => {
-//     render(
-//       <MemoryRouter>
-//         <SortingPage />
-//       </MemoryRouter>
-//     );
-//     const elementsArrButton = screen.getByTestId("testElementsArr");
-//     const ascButton = screen.getByTestId("testASC");
-//     const choiceTestButton = screen.getByLabelText("Выбор");
-//     userEvent.click(choiceTestButton);
-//     expect(choiceTestButton).toBeChecked();
-//     fireEvent.click(elementsArrButton);
-//     userEvent.click(ascButton);
-//     await waitFor(
-//       () => {
-//         const column = screen.getByTestId("testColumn");
-//         console.log(column.innerHTML);
-//         expect(column).toBeInTheDocument();
-//       },
-//       { timeout: 1000 }
-//     );
-//     const column = screen.getByTestId("testColumn");
-//     expect(column.innerHTML).toEqual(`${oneElementForSort[0].number}`);
-//   });
+  it("Массив из нескольких элементов выбором по возрастанию", async () => {
+    render(
+      <MemoryRouter>
+        <SortingPage />
+      </MemoryRouter>
+    );
+    const elementsArrButton = screen.getByTestId("testElementsArr");
+    const ascButton = screen.getByTestId("testASC");
+    const choiceTestButton = screen.getByLabelText("Выбор");
+    userEvent.click(choiceTestButton);
+    expect(choiceTestButton).toBeChecked();
+    fireEvent.click(elementsArrButton);
+    userEvent.click(ascButton);
+    await waitFor(
+      () => {
+        const columns = screen.getAllByTestId("testColumn").map(item => item.innerHTML);
+        expect(columns).toEqual(sortedAsc);
+      },
+      { timeout: 1500 }
+    );
+  });
+
+  it("Массив из нескольких элементов выбором по убыванию", async () => {
+    render(
+      <MemoryRouter>
+        <SortingPage />
+      </MemoryRouter>
+    );
+    const elementsArrButton = screen.getByTestId("testElementsArr");
+    const dscButton = screen.getByTestId("testDSC");
+    const choiceTestButton = screen.getByLabelText("Выбор");
+    userEvent.click(choiceTestButton);
+    expect(choiceTestButton).toBeChecked();
+    fireEvent.click(elementsArrButton);
+    userEvent.click(dscButton);
+    await waitFor(
+      () => {
+        const columns = screen.getAllByTestId("testColumn").map(item => item.innerHTML);
+        expect(columns).toEqual(sortedDsc);
+      },
+      { timeout: 1500 }
+    );
+  });
+
+  it("Массив из нескольких элементов пузырьком по возрастанию", async () => {
+    render(
+      <MemoryRouter>
+        <SortingPage />
+      </MemoryRouter>
+    );
+    const elementsArrButton = screen.getByTestId("testElementsArr");
+    const ascButton = screen.getByTestId("testASC");
+    const bubbleTestButton = screen.getByLabelText("Пузырёк");
+    userEvent.click(bubbleTestButton);
+    expect(bubbleTestButton).toBeChecked();
+    fireEvent.click(elementsArrButton);
+    userEvent.click(ascButton);
+    await waitFor(
+      () => {
+        const columns = screen.getAllByTestId("testColumn").map(item => item.innerHTML);
+        expect(columns).toEqual(sortedAsc);
+      },
+      { timeout: 1500 }
+    );
+  });
+
+  it("Массив из нескольких элементов выбором по убыванию", async () => {
+    render(
+      <MemoryRouter>
+        <SortingPage />
+      </MemoryRouter>
+    );
+    const elementsArrButton = screen.getByTestId("testElementsArr");
+    const dscButton = screen.getByTestId("testDSC");
+    const bubbleTestButton = screen.getByLabelText("Пузырёк");
+    userEvent.click(bubbleTestButton);
+    expect(bubbleTestButton).toBeChecked();
+    fireEvent.click(elementsArrButton);
+    userEvent.click(dscButton);
+    await waitFor(
+      () => {
+        const columns = screen.getAllByTestId("testColumn").map(item => item.innerHTML);
+        expect(columns).toEqual(sortedDsc);
+      },
+      { timeout: 1000 }
+    );
+  });
 
 });
