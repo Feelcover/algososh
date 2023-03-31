@@ -6,10 +6,14 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
+import { delay } from "../../utils/delay";
 import { SortingPage } from "./sorting-page";
 import { oneElementForSort, sortedAsc, sortedDsc } from "./sorting-page-utils";
 
 //Тестовые массивы находятся в sorting-page-utils.ts
+//По временным затратам тесты не лучшие вышли, всё из-за анимаций
+
+
 
 
 describe("Корректная работа сортировки", () => {
@@ -95,6 +99,7 @@ describe("Корректная работа сортировки", () => {
     expect(choiceTestButton).toBeChecked();
     fireEvent.click(elementsArrButton);
     userEvent.click(ascButton);
+    await delay(2500);
     await waitFor(
       () => {
         const columns = screen.getAllByTestId("testColumn").map(item => item.innerHTML);
@@ -117,6 +122,7 @@ describe("Корректная работа сортировки", () => {
     expect(choiceTestButton).toBeChecked();
     fireEvent.click(elementsArrButton);
     userEvent.click(dscButton);
+    await delay(2500);
     await waitFor(
       () => {
         const columns = screen.getAllByTestId("testColumn").map(item => item.innerHTML);
@@ -139,6 +145,7 @@ describe("Корректная работа сортировки", () => {
     expect(bubbleTestButton).toBeChecked();
     fireEvent.click(elementsArrButton);
     userEvent.click(ascButton);
+    await delay(2500);
     await waitFor(
       () => {
         const columns = screen.getAllByTestId("testColumn").map(item => item.innerHTML);
@@ -161,12 +168,13 @@ describe("Корректная работа сортировки", () => {
     expect(bubbleTestButton).toBeChecked();
     fireEvent.click(elementsArrButton);
     userEvent.click(dscButton);
+    await delay(2500);
     await waitFor(
       () => {
         const columns = screen.getAllByTestId("testColumn").map(item => item.innerHTML);
         expect(columns).toEqual(sortedDsc);
       },
-      { timeout: 1000 }
+      { timeout: 1500 }
     );
   });
 
