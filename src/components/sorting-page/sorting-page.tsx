@@ -21,7 +21,7 @@ export const SortingPage: React.FC = () => {
 
   const [selected, setSelected] = useState<string>("select");
   const newArr:number[] = randomSortArr();
-  
+
   const handleSelectSort = (evt: ChangeEvent<HTMLInputElement>) => {
     setSelected((evt.target as HTMLInputElement).value);
   };
@@ -132,17 +132,19 @@ export const SortingPage: React.FC = () => {
             <RadioInput label="Пузырёк" name="sorting-type" value="bubble" />
           </div>
           <Button
+            data-testid='testASC'
             type="button"
             text="По возрастанию"
             isLoader={isLoading.ASC}
-            disabled={isLoading.Loader}
+            disabled={isLoading.Loader || newArr.length === 0}
             onClick={() => onClickSort(true)}
           />
           <Button
+            data-testid='testDSC'
             type="button"
             text="По убыванию"
             isLoader={isLoading.DSC}
-            disabled={isLoading.Loader}
+            disabled={isLoading.Loader || newArr.length === 0}
             onClick={() => onClickSort(false)}
           />
           <div className={styles.button}>
@@ -160,7 +162,7 @@ export const SortingPage: React.FC = () => {
       </form>
       <ul className={styles.column}>
         {arr.map((item, index) => {
-          return <Column key={index} index={item.number} state={item.state} />;
+          return <Column key={index} index={item.number} state={item.state} data-testid={'testColumn'} />;
         })}
       </ul>
     </SolutionLayout>

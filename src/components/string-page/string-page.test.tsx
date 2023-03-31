@@ -74,7 +74,6 @@ describe("Корректный разворот строки", () => {
     userEvent.type(input, 'q');
     expect(button).toBeEnabled()
     expect(input).toHaveValue('q');
-    screen.debug()
     fireEvent.click(button);
     await waitFor(
       () => {
