@@ -1,25 +1,37 @@
 import { testUrl } from "../constants/constants";
 
-describe('Проверка корректной работы маршрутизации', ()=> {
-    it('Главная страница доступна', ()=> {
-        cy.visit(testUrl);
-    });
-    it('Страница "Строка" доступна', ()=> {
-        cy.visit(`${testUrl}/recursion`);
-    });
-    it('Страница "Последовательность Фибоначчи" доступна', ()=> {
-        cy.visit(`${testUrl}/fibonacci`);
-    });
-    it('Страница "Сортировка массива" доступна', ()=> {
-        cy.visit(`${testUrl}/sorting`);
-    });
-    it('Страница "Стек" доступна', ()=> {
-        cy.visit(`${testUrl}/stack`);
-    });
-    it('Страница "Очередь" доступна', ()=> {
-        cy.visit(`${testUrl}/queue`);
-    });
-    it('Страница "Связный список" доступна', ()=> {
-        cy.visit(`${testUrl}/list`);
-    });
-})
+describe("Проверка корректной работы маршрутизации", () => {
+  beforeEach(() => {
+    cy.visit(testUrl);
+  });
+  it('Страница "Строка" доступна', () => {
+    cy.get("[href*='/recursion']").click();
+    cy.contains('Строка');
+    cy.contains('К оглавлению');
+  });
+  it('Страница "Последовательность Фибоначчи" доступна', () => {
+    cy.get("[href*='/fibonacci']").click();
+    cy.contains('Последовательность Фибоначчи');
+    cy.contains('К оглавлению');
+  });
+  it('Страница "Сортировка массива" доступна', () => {
+    cy.get("[href*='/sorting']").click();
+    cy.contains('Сортировка массива');
+    cy.contains('К оглавлению');
+  });
+  it('Страница "Стек" доступна', () => {
+    cy.get("[href*='/stack']").click();
+    cy.contains('Стек');
+    cy.contains('К оглавлению');
+  });
+  it('Страница "Очередь" доступна', () => {
+    cy.get("[href*='/queue']").click();
+    cy.contains('Очередь');
+    cy.contains('К оглавлению');
+  });
+  it('Страница "Связный список" доступна', () => {
+    cy.get("[href*='/list']").click();
+    cy.contains('Связный список');
+    cy.contains('К оглавлению');
+  });
+});
