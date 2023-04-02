@@ -61,10 +61,10 @@ describe('Страница "Стек" отображается правильн�
   });
   it("Правильность очистки из стека", () => {
     for (let i = 0; i < testArray.length; i++) {
-        cy.get("input").should("be.empty").type(testArray[i])
-        cy.get("@addButton").should("not.be.disabled").click()
+      cy.get("input").should("be.empty").type(testArray[i]);
+      cy.get("@addButton").should("not.be.disabled").click();
     }
-    cy.get("@clearButton").should("not.be.disabled").click()
-    cy.get(dataTestCircle).should("have.length", 0)
-})
+    cy.get("@clearButton").should("not.be.disabled").click();
+    cy.get(dataTestCircle).should("have.length", 0);
+  });
 });
