@@ -4,12 +4,10 @@ describe('Страница "Строка" отображается правил�
 	beforeEach(() => {
 		cy.visit(testUrl);
 		cy.get('[href*="/recursion"]').click()
-		cy.get('input').as("input");
-		cy.get("button").as("button")
 	})
 	it('Кнопка отключена при пустом инпуте', () => {
 		cy.get("input").should('have.value', '');
-		cy.get("@button").should("be.disabled")
+		cy.get("button").should("be.disabled")
 	});
 
 	it('Строка разворачивается корректно', () => {

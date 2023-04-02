@@ -14,7 +14,7 @@ import styles from "./fibonacci-page.module.css";
 export const FibonacciPage: React.FC = () => {
   const [arr, setArr] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { inputValue, handleChangeInput, setInputValue } = useForm("0");
+  const { inputValue, handleChangeInput, setInputValue } = useForm("");
   const inputValueToNum = Number(inputValue);
 
   const fibonacciFunc = async (num: number) => {
