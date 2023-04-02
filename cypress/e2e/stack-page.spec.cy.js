@@ -3,7 +3,6 @@ import {
   dataTestCircle,
   dataTestDefault,
   dataTestChanging,
-  dataTestModified,
   testArray,
   dataTestContentCircle,
 } from "../constants/constants";

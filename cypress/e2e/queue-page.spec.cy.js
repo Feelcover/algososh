@@ -6,22 +6,22 @@ import {
   dataTestForm,
   dataTestInput,
   dataTestAdd,
-  dataTestRemove,
+  dataTestDelete,
   dataTestClear,
 } from "../constants/constants";
 
-describe('Страница "Стек" отображается правильно', () => {
+describe('Страница "Очередь" отображается правильно', () => {
   const addFirst = (value) => {
     cy.get(dataTestForm).within(() => {
       cy.get(dataTestInput).type(value);
       cy.get(dataTestAdd).should("be.not.disabled");
-      cy.get(dataTestRemove).should("be.disabled");
+      cy.get(dataTestDelete).should("be.disabled");
       cy.get(dataTestClear).should("be.disabled");
     });
 
     cy.get(dataTestForm).within(() => {
       cy.get(dataTestAdd).click();
-      cy.get(dataTestRemove).should("be.disabled");
+      cy.get(dataTestDelete).should("be.disabled");
       cy.get(dataTestClear).should("be.disabled");
     });
 
@@ -31,13 +31,13 @@ describe('Страница "Стек" отображается правильн�
     cy.get(dataTestForm).within(() => {
       cy.get(dataTestInput).type(value);
       cy.get(dataTestAdd).should("be.not.disabled");
-      cy.get(dataTestRemove).should("be.not.disabled");
+      cy.get(dataTestDelete).should("be.not.disabled");
       cy.get(dataTestClear).should("be.not.disabled");
     });
 
     cy.get(dataTestForm).within(() => {
       cy.get(dataTestAdd).click();
-      cy.get(dataTestRemove).should("be.disabled");
+      cy.get(dataTestDelete).should("be.disabled");
       cy.get(dataTestClear).should("be.disabled");
     });
     cy.get(dataTestCircle).contains(value).parent().invoke("attr", "class").then((classList) => expect(classList).contains(defaultStyle));
@@ -51,7 +51,7 @@ describe('Страница "Стек" отображается правильн�
     cy.get(dataTestForm).within(() => {
       cy.get(dataTestInput).should("have.value", "");
       cy.get(dataTestAdd).should("be.disabled");
-      cy.get(dataTestRemove).should("be.disabled");
+      cy.get(dataTestDelete).should("be.disabled");
       cy.get(dataTestClear).should("be.disabled");
     });
   });
@@ -88,7 +88,7 @@ describe('Страница "Стек" отображается правильн�
     cy.get(dataTestForm).within(() => {
       cy.get(dataTestInput).should("have.value", "");
       cy.get(dataTestAdd).should("be.disabled");
-      cy.get(dataTestRemove).click();
+      cy.get(dataTestDelete).click();
     });
 
     cy.get(dataTestCircle).first().invoke("attr", "class").then((classList) => expect(classList).contains(defaultStyle));
@@ -107,7 +107,7 @@ describe('Страница "Стек" отображается правильн�
     cy.get(dataTestForm).within(() => {
       cy.get(dataTestInput).should("have.value", "");
       cy.get(dataTestAdd).should("be.disabled");
-      cy.get(dataTestRemove).should("be.not.disabled");
+      cy.get(dataTestDelete).should("be.not.disabled");
       cy.get(dataTestClear).should("be.not.disabled");
     });
   });
@@ -127,7 +127,7 @@ describe('Страница "Стек" отображается правильн�
     cy.get(dataTestForm).within(() => {
       cy.get(dataTestInput).should("have.value", "");
       cy.get(dataTestAdd).should("be.disabled");
-      cy.get(dataTestRemove).should("be.disabled");
+      cy.get(dataTestDelete).should("be.disabled");
       cy.get(dataTestClear).should("be.disabled");
     });
   });

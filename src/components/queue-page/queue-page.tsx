@@ -124,7 +124,7 @@ export const QueuePage: React.FC = () => {
             }
           />
           <Button
-            data-testid="remove"
+            data-testid="delete"
             text="Удалить"
             onClick={onDequeue}
             disabled={queue.isEmpty() || isLoading.disabled}
