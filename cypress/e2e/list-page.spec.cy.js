@@ -158,7 +158,7 @@ describe('Страница "Связный список" отображаетс�
       .invoke("attr", "class")
       .then((classList) => expect(classList).contains(defaultStyle));
   });
-  it("Корректное добавление элемента в head.", () => {
+  it("Правильное добавление элемента в head.", () => {
     addHead("13");
     cy.get(dataTestCircle).then((e) => {
       cy.get(e[0]).children().should("have.text", "13");
@@ -192,7 +192,7 @@ describe('Страница "Связный список" отображаетс�
       .then((classList) => expect(classList).contains(changingStyle));
   });
 
-  it("Корректное добавление элемента в tail", () => {
+  it("Правильное добавление элемента в tail", () => {
     addTail("13");
     cy.get(dataTestCircle).then((e) => {
       cy.get(e[0]).children().should("have.text", "85");
@@ -226,7 +226,7 @@ describe('Страница "Связный список" отображаетс�
       .then((classList) => expect(classList).contains(defaultStyle));
   });
 
-  it("Корректное добавления элемента по индексу", () => {
+  it("Правильные добавления элемента по индексу", () => {
     addIndex("13", 2);
     cy.wait(500);
     cy.get(dataTestCircle).then((e) => {
@@ -289,7 +289,7 @@ describe('Страница "Связный список" отображаетс�
       .then((classList) => expect(classList).contains("circle_small"));
   });
 
-  it("Корректное удаление элемента из head.", () => {
+  it("Правильное удаление элемента из head.", () => {
     cy.get(dataTestForm).within(() => {
       cy.get(dataTestInput).should("be.not.disabled");
       cy.get(dataTestAddTail).should("be.disabled");
@@ -337,7 +337,7 @@ describe('Страница "Связный список" отображаетс�
     });
   });
 
-  it("Корректное удаление элемента из tail.", () => {
+  it("Правильное удаление элемента из tail.", () => {
     cy.get(dataTestForm).within(() => {
       cy.get(dataTestInput).should("be.not.disabled");
       cy.get(dataTestAddTail).should("be.disabled");
@@ -385,7 +385,7 @@ describe('Страница "Связный список" отображаетс�
     });
   });
 
-  it("Корректное удаление элемента по индексу..", () => {
+  it("Правильное удаление элемента по индексу", () => {
     cy.get(dataTestForm).within(() => {
       cy.get(dataTestInput).should("be.not.disabled");
       cy.get(dataTestAddTail).should("be.disabled");

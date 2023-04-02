@@ -4,6 +4,8 @@
 
  [Ссылка на просмотр работы](https://feelcover.github.io/algososh/)
 
+ ## Тестирование при использовании React-testing library и cypress
+
 ## Строка
 
 
