@@ -37,4 +37,28 @@ describe('Страница "Связный список" отображаетс�
       cy.get(dataTestDeleteByIndex).should("be.disabled");
     });
   });
+
+  it('Правильная отрисовка стартовых элементов', function () {
+    cy.get(dataTestCircle).should('have.length', 4)
+        .invoke('attr', 'class')
+        .then(classList => expect(classList).contains(defaultStyle))
+
+    cy.get(dataTestCircle).then((e) => {
+        cy.get(e[0])
+            .children().should('have.text', '85')
+
+        cy.get(e[1])
+            .children().should('have.text', '13')
+
+        cy.get(e[2])
+            .children().should('have.text', '34')
+
+        cy.get(e[3])
+            .children().should('have.text', '7')
+    })
+
+    cy.get(dataTestCircle).should('have.length', 4)
+        .invoke('attr', 'class')
+        .then(classList => expect(classList).contains(defaultStyle))
+})
 });

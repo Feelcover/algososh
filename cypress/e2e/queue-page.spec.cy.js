@@ -93,15 +93,15 @@ describe('Страница "Очередь" отображается прави�
 
     cy.get(dataTestCircle).first().invoke("attr", "class").then((classList) => expect(classList).contains(defaultStyle));
 
-    cy.get(dataTestCircle).then((elem) => {
-      cy.get(elem[0]).children().should("be.empty");
-      cy.get(elem[0]).invoke("attr", "class").then((classList) => expect(classList).contains(defaultStyle));
+    cy.get(dataTestCircle).then((e) => {
+      cy.get(e[0]).children().should("be.empty");
+      cy.get(e[0]).invoke("attr", "class").then((classList) => expect(classList).contains(defaultStyle));
 
-      cy.get(elem[1]).invoke("attr", "class").then((classList) => expect(classList).contains(changingStyle));
-      cy.get(elem[1]).children().should("have.text", "6");
+      cy.get(e[1]).invoke("attr", "class").then((classList) => expect(classList).contains(changingStyle));
+      cy.get(e[1]).children().should("have.text", "6");
 
-      cy.get(elem[2]).invoke("attr", "class").then((classList) => expect(classList).contains(defaultStyle));
-      cy.get(elem[2]).children().should("have.text", "7");
+      cy.get(e[2]).invoke("attr", "class").then((classList) => expect(classList).contains(defaultStyle));
+      cy.get(e[2]).children().should("have.text", "7");
     });
 
     cy.get(dataTestForm).within(() => {
