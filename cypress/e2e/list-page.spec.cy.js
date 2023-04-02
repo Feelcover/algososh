@@ -17,7 +17,7 @@ import {
 
 describe('Страница "Связный список" отображается правильно', () => {
   const addHead = (value) => {
-    cy.clock();
+    
     cy.get(dataTestForm).within(() => {
       cy.get(dataTestInput).type(value);
       cy.get(dataTestAddTail).should("be.not.disabled");
@@ -51,7 +51,6 @@ describe('Страница "Связный список" отображаетс�
   };
 
   const addTail = (value) => {
-    cy.clock();
     cy.get(dataTestForm).within(() => {
       cy.get(dataTestInput).type(value);
       cy.get(dataTestAddTail).should("be.not.disabled");
@@ -61,7 +60,7 @@ describe('Страница "Связный список" отображаетс�
     });
     cy.get(dataTestFormIndex).within(() => {
       cy.get(dataTestInputIndex).should("be.not.disabled");
-
+      cy.get(dataTestAddIndex).should("be.disabled");
       cy.get(dataTestDeleteByIndex).should("be.disabled");
     });
 
@@ -81,11 +80,11 @@ describe('Страница "Связный список" отображаетс�
       .contains(value)
       .parent()
       .invoke("attr", "class")
-      .then((classList) => expect(classList).contains(defaultStyle));
+      .then((classList) => expect(classList).contains(changingStyle));
   };
 
   const addIndex = (value, index) => {
-    cy.clock();
+    
     cy.get(dataTestForm).within(() => {
       cy.get(dataTestInput).type(value);
       cy.get(dataTestAddTail).should("be.not.disabled");
@@ -193,7 +192,7 @@ describe('Страница "Связный список" отображаетс�
   });
 
   it("Правильное добавление элемента в tail", () => {
-    addTail("13");
+    addTail("7");
     cy.get(dataTestCircle).then((e) => {
       cy.get(e[0]).children().should("have.text", "85");
       cy.get(e[0])
@@ -210,7 +209,7 @@ describe('Страница "Связный список" отображаетс�
         .invoke("attr", "class")
         .then((classList) => expect(classList).contains(defaultStyle));
 
-      cy.get(e[3]).children().should("have.text", "13");
+      cy.get(e[3]).children().should("have.text", "7");
       cy.get(e[3])
         .invoke("attr", "class")
         .then((classList) => expect(classList).contains(changingStyle));
@@ -226,7 +225,7 @@ describe('Страница "Связный список" отображаетс�
       .then((classList) => expect(classList).contains(defaultStyle));
   });
 
-  it("Правильные добавления элемента по индексу", () => {
+  it("Правильное добавление элемента по индексу", () => {
     addIndex("13", 2);
     cy.wait(500);
     cy.get(dataTestCircle).then((e) => {
