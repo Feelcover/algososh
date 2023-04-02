@@ -435,8 +435,9 @@ describe('Страница "Связный список" отображаетс�
     cy.get(dataTestCircle).then((e) => {
       cy.get(e[0]).children().should("have.text", "85");
       cy.get(e[1]).children().should("have.text", "13");
-      cy.get(e[2]).children().should("have.text", "34");
-      cy.get(e[3]).children().should("have.text", "7");
+      cy.get(e[2]).children().should("have.text", "");
+      cy.get(e[3]).children().should("have.text", "34");
+      cy.get(e[4]).children().should("have.text", "7");
     });
 
     cy.wait(500);
