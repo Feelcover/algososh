@@ -85,7 +85,7 @@ export const StackPage: React.FC = () => {
           />
           <Button
             text="Удалить"
-            disabled={arr.length < 1 || isLoading.disabled}
+            disabled={!arr.length}
             onClick={onClickDelete}
             isLoader={isLoading.isDelete}
           />

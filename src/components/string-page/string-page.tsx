@@ -25,7 +25,7 @@ export const StringPage: React.FC = () => {
         arr[i].color = ElementStates.Changing;
         arr[j].color = ElementStates.Changing;
         setArr([...arr]);
-        await delay(1000);
+        await delay(500);
       }
       swap(arr, i, j);
       arr[i].color = ElementStates.Modified;
@@ -59,19 +59,26 @@ export const StringPage: React.FC = () => {
             isLimitText={true}
             value={inputValue}
             disabled={isLoading}
+            data-testid="input"
           />
           <Button
             text="Развернуть"
             onClick={(evt) => onClickReverse(evt)}
             extraClass={styles.button}
             isLoader={isLoading}
-            disabled={!inputValue || inputValue.length < 2 || isLoading}
+            disabled={!inputValue || inputValue.length < 1 || isLoading}
+            data-testid="button"
           />
         </form>
         <ul className={styles.elements}>
           {arr.map((item, index) => {
             return (
-              <Circle key={index} letter={item.value} state={item.color} />
+              <Circle
+                key={index}
+                letter={item.value}
+                state={item.color}
+                data-testid={"testCircle"}
+              />
             );
           })}
         </ul>

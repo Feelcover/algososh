@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  FormEvent,
-  MouseEvent,
-  useMemo,
-  useState,
-} from "react";
+import React, { useState } from "react";
 import { useForm, useFormIndex } from "../../hooks/useForm";
 import { ElementStates } from "../../types/element-states";
 import { TList } from "../../types/other-types";
@@ -41,7 +35,6 @@ export const ListPage: React.FC = () => {
 
   const { inputValue, handleChangeInput, setInputValue } = useForm("");
   const { inputIndex, handleChangeInputIndex, setInputIndex } = useFormIndex(0);
-  const inputIndexNum = String(inputIndex);
 
   const onAddToHead = async () => {
     setIsLoading({ ...isLoading, addToHead: true, disabled: true });
@@ -228,10 +221,12 @@ export const ListPage: React.FC = () => {
     <SolutionLayout title="Связный список">
       <div className={styles.container}>
         <form
+          data-testid="form"
           className={styles.upForm}
           onSubmit={(evt) => evt.preventDefault()}
         >
           <Input
+            data-testid="input"
             onChange={handleChangeInput}
             extraClass={styles.input}
             placeholder="Введите значение"
@@ -241,6 +236,7 @@ export const ListPage: React.FC = () => {
             disabled={isLoading.disabled}
           />
           <Button
+            data-testid="add_head"
             onClick={onAddToHead}
             text="Добавить в head"
             type="button"
@@ -250,6 +246,7 @@ export const ListPage: React.FC = () => {
             isLoader={isLoading.addToHead}
           />
           <Button
+            data-testid="add_tail"
             onClick={onAddToTail}
             text="Добавить в tail"
             type="button"
@@ -259,6 +256,7 @@ export const ListPage: React.FC = () => {
             isLoader={isLoading.addToTail}
           />
           <Button
+            data-testid="delete_head"
             onClick={onDeleteInHead}
             text="Удалить из head"
             type="button"
@@ -268,6 +266,7 @@ export const ListPage: React.FC = () => {
             }
           />
           <Button
+            data-testid="delete_tail"
             onClick={onDeleteInTail}
             text="Удалить из tail"
             type="button"
@@ -279,10 +278,12 @@ export const ListPage: React.FC = () => {
         </form>
 
         <form
+          data-testid="form_index"
           className={styles.downForm}
           onSubmit={(evt) => evt.preventDefault()}
         >
           <Input
+            data-testid="input_index"
             onChange={handleChangeInputIndex}
             placeholder="Введите индекс"
             min={0}
@@ -292,6 +293,7 @@ export const ListPage: React.FC = () => {
             disabled={isLoading.disabled}
           />
           <Button
+            data-testid="add_index"
             onClick={OnAddByIndex}
             text="Добавить по индексу"
             type="button"
@@ -305,6 +307,7 @@ export const ListPage: React.FC = () => {
             }
           />
           <Button
+            data-testid="delete_index"
             onClick={onDeleteByIndex}
             text="Удалить по индексу"
             type="button"
