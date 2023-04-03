@@ -1,8 +1,8 @@
-import { testUrl } from "../constants/constants";
+import { TEST_URL } from "../constants/constants";
 
 describe("Проверка корректной работы маршрутизации", () => {
   beforeEach(() => {
-    cy.visit(testUrl);
+    cy.visit(TEST_URL);
   });
   it('Страница "Строка" доступна', () => {
     cy.get("[href*='/recursion']").click();

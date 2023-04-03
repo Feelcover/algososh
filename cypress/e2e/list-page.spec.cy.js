@@ -1,49 +1,49 @@
 import {
-  testUrl,
-  dataTestCircle,
-  defaultStyle,
-  changingStyle,
-  dataTestForm,
-  dataTestInput,
-  dataTestFormIndex,
-  dataTestAddHead,
-  dataTestDeleteHead,
-  dataTestAddIndex,
-  dataTestDeleteByIndex,
-  dataTestAddTail,
-  dataTestDeleteTail,
-  dataTestInputIndex,
+  TEST_URL,
+  DATA_TEST_CIRCLE,
+  DEFAULT_STYLE,
+  CHANGING_STYLE,
+  DATA_TEST_FORM,
+  DATA_TEST_INPUT,
+  DATA_TEST_FORM_INDEX,
+  DATA_TEST_ADD_HEAD,
+  DATA_TEST_DELETE_HEAD,
+  DATA_TEST_ADD_INDEX,
+  DATA_TEST_DELETE_INDEX,
+  DATA_TEST_ADD_TAIL,
+  DATA_TEST_DELETE_TAIL,
+  DATA_TEST_INPUT_INDEX,
 } from "../constants/constants";
 
 describe('Страница "Связный список" отображается правильно', () => {
   const addHead = (value) => {
     
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestInput).type(value);
-      cy.get(dataTestAddTail).should("be.not.disabled");
-      cy.get(dataTestAddHead).should("be.not.disabled");
-      cy.get(dataTestDeleteTail).should("be.not.disabled");
-      cy.get(dataTestDeleteHead).should("be.not.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_INPUT).type(value);
+      cy.get(DATA_TEST_ADD_TAIL).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_HEAD).should("be.not.disabled");
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.not.disabled");
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.not.disabled");
     });
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestInputIndex).should("be.not.disabled");
-      cy.get(dataTestAddIndex).should("be.disabled");
-      cy.get(dataTestDeleteByIndex).should("be.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_INPUT_INDEX).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.disabled");
     });
 
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestAddHead).click();
-      cy.get(dataTestInput).should("be.disabled");
-      cy.get(dataTestAddTail).should("be.disabled");
-      cy.get(dataTestDeleteTail).should("be.disabled");
-      cy.get(dataTestDeleteHead).should("be.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_ADD_HEAD).click();
+      cy.get(DATA_TEST_INPUT).should("be.disabled");
+      cy.get(DATA_TEST_ADD_TAIL).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.disabled");
     });
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestInputIndex).should("be.disabled");
-      cy.get(dataTestAddIndex).should("be.disabled");
-      cy.get(dataTestDeleteByIndex).should("be.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_INPUT_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_ADD_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.disabled");
     });
-    cy.get(dataTestCircle)
+    cy.get(DATA_TEST_CIRCLE)
       .contains(value)
       .parent()
       .invoke("attr", "class")
@@ -51,66 +51,66 @@ describe('Страница "Связный список" отображаетс�
   };
 
   const addTail = (value) => {
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestInput).type(value);
-      cy.get(dataTestAddTail).should("be.not.disabled");
-      cy.get(dataTestAddHead).should("be.not.disabled");
-      cy.get(dataTestDeleteTail).should("be.not.disabled");
-      cy.get(dataTestDeleteHead).should("be.not.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_INPUT).type(value);
+      cy.get(DATA_TEST_ADD_TAIL).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_HEAD).should("be.not.disabled");
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.not.disabled");
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.not.disabled");
     });
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestInputIndex).should("be.not.disabled");
-      cy.get(dataTestAddIndex).should("be.disabled");
-      cy.get(dataTestDeleteByIndex).should("be.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_INPUT_INDEX).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.disabled");
     });
 
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestAddTail).click();
-      cy.get(dataTestInput).should("be.disabled");
-      cy.get(dataTestAddHead).should("be.disabled");
-      cy.get(dataTestDeleteTail).should("be.disabled");
-      cy.get(dataTestDeleteHead).should("be.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_ADD_TAIL).click();
+      cy.get(DATA_TEST_INPUT).should("be.disabled");
+      cy.get(DATA_TEST_ADD_HEAD).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.disabled");
     });
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestInputIndex).should("be.disabled");
-      cy.get(dataTestAddIndex).should("be.disabled");
-      cy.get(dataTestDeleteByIndex).should("be.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_INPUT_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_ADD_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.disabled");
     });
-    cy.get(dataTestCircle)
+    cy.get(DATA_TEST_CIRCLE)
       .contains(value)
       .parent()
       .invoke("attr", "class")
-      .then((classList) => expect(classList).contains(changingStyle));
+      .then((classList) => expect(classList).contains(CHANGING_STYLE));
   };
 
   const addIndex = (value, index) => {
     
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestInput).type(value);
-      cy.get(dataTestAddTail).should("be.not.disabled");
-      cy.get(dataTestAddHead).should("be.not.disabled");
-      cy.get(dataTestDeleteTail).should("be.not.disabled");
-      cy.get(dataTestDeleteHead).should("be.not.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_INPUT).type(value);
+      cy.get(DATA_TEST_ADD_TAIL).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_HEAD).should("be.not.disabled");
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.not.disabled");
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.not.disabled");
     });
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestInputIndex).type(index);
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_INPUT_INDEX).type(index);
 
-      cy.get(dataTestDeleteByIndex).should("be.not.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.not.disabled");
     });
 
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestAddIndex).click();
-      cy.get(dataTestInputIndex).should("be.disabled");
-      cy.get(dataTestDeleteByIndex).should("be.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_ADD_INDEX).click();
+      cy.get(DATA_TEST_INPUT_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.disabled");
     });
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestAddTail).should("be.disabled");
-      cy.get(dataTestInput).should("be.disabled");
-      cy.get(dataTestAddHead).should("be.disabled");
-      cy.get(dataTestDeleteTail).should("be.disabled");
-      cy.get(dataTestDeleteHead).should("be.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_ADD_TAIL).should("be.disabled");
+      cy.get(DATA_TEST_INPUT).should("be.disabled");
+      cy.get(DATA_TEST_ADD_HEAD).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.disabled");
     });
-    cy.get(dataTestCircle)
+    cy.get(DATA_TEST_CIRCLE)
       .contains(value)
       .parent()
       .invoke("attr", "class")
@@ -118,31 +118,31 @@ describe('Страница "Связный список" отображаетс�
   };
 
   beforeEach(() => {
-    cy.visit(testUrl);
+    cy.visit(TEST_URL);
     cy.get('[href*="/list"]').click();
   });
   it("Кнопки отключены при пустом инпуте", () => {
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestInput).should("have.value", "");
-      cy.get(dataTestAddTail).should("be.disabled");
-      cy.get(dataTestAddHead).should("be.disabled");
-      cy.get(dataTestDeleteTail).should("be.not.disabled");
-      cy.get(dataTestDeleteHead).should("be.not.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_INPUT).should("have.value", "");
+      cy.get(DATA_TEST_ADD_TAIL).should("be.disabled");
+      cy.get(DATA_TEST_ADD_HEAD).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.not.disabled");
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.not.disabled");
     });
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestInputIndex).should("have.value", "0");
-      cy.get(dataTestAddIndex).should("be.disabled");
-      cy.get(dataTestDeleteByIndex).should("be.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_INPUT_INDEX).should("have.value", "0");
+      cy.get(DATA_TEST_ADD_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.disabled");
     });
   });
 
   it("Правильная отрисовка стартовых элементов", () => {
-    cy.get(dataTestCircle)
+    cy.get(DATA_TEST_CIRCLE)
       .should("have.length", 4)
       .invoke("attr", "class")
-      .then((classList) => expect(classList).contains(defaultStyle));
+      .then((classList) => expect(classList).contains(DEFAULT_STYLE));
 
-    cy.get(dataTestCircle).then((e) => {
+    cy.get(DATA_TEST_CIRCLE).then((e) => {
       cy.get(e[0]).children().should("have.text", "85");
 
       cy.get(e[1]).children().should("have.text", "13");
@@ -152,14 +152,14 @@ describe('Страница "Связный список" отображаетс�
       cy.get(e[3]).children().should("have.text", "7");
     });
 
-    cy.get(dataTestCircle)
+    cy.get(DATA_TEST_CIRCLE)
       .should("have.length", 4)
       .invoke("attr", "class")
-      .then((classList) => expect(classList).contains(defaultStyle));
+      .then((classList) => expect(classList).contains(DEFAULT_STYLE));
   });
   it("Правильное добавление элемента в head.", () => {
     addHead("13");
-    cy.get(dataTestCircle).then((e) => {
+    cy.get(DATA_TEST_CIRCLE).then((e) => {
       cy.get(e[0]).children().should("have.text", "13");
       cy.get(e[0])
         .invoke("attr", "class")
@@ -168,252 +168,252 @@ describe('Страница "Связный список" отображаетс�
       cy.get(e[1]).children().should("have.text", "85");
       cy.get(e[1])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(defaultStyle));
+        .then((classList) => expect(classList).contains(DEFAULT_STYLE));
 
       cy.get(e[2]).children().should("have.text", "13");
       cy.get(e[2])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(defaultStyle));
+        .then((classList) => expect(classList).contains(DEFAULT_STYLE));
 
       cy.get(e[3]).children().should("have.text", "34");
       cy.get(e[3])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(defaultStyle));
+        .then((classList) => expect(classList).contains(DEFAULT_STYLE));
 
       cy.get(e[4]).children().should("have.text", "7");
       cy.get(e[4])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(defaultStyle));
+        .then((classList) => expect(classList).contains(DEFAULT_STYLE));
     });
 
-    cy.get(dataTestCircle)
+    cy.get(DATA_TEST_CIRCLE)
       .invoke("attr", "class")
-      .then((classList) => expect(classList).contains(changingStyle));
+      .then((classList) => expect(classList).contains(CHANGING_STYLE));
   });
 
   it("Правильное добавление элемента в tail", () => {
     addTail("7");
-    cy.get(dataTestCircle).then((e) => {
+    cy.get(DATA_TEST_CIRCLE).then((e) => {
       cy.get(e[0]).children().should("have.text", "85");
       cy.get(e[0])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(defaultStyle));
+        .then((classList) => expect(classList).contains(DEFAULT_STYLE));
 
       cy.get(e[1]).children().should("have.text", "13");
       cy.get(e[0])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(defaultStyle));
+        .then((classList) => expect(classList).contains(DEFAULT_STYLE));
 
       cy.get(e[2]).children().should("have.text", "34");
       cy.get(e[2])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(defaultStyle));
+        .then((classList) => expect(classList).contains(DEFAULT_STYLE));
 
       cy.get(e[3]).children().should("have.text", "7");
       cy.get(e[3])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(changingStyle));
+        .then((classList) => expect(classList).contains(CHANGING_STYLE));
 
       cy.get(e[4]).children().should("have.text", "7");
       cy.get(e[4])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(defaultStyle));
+        .then((classList) => expect(classList).contains(DEFAULT_STYLE));
     });
 
-    cy.get(dataTestCircle)
+    cy.get(DATA_TEST_CIRCLE)
       .invoke("attr", "class")
-      .then((classList) => expect(classList).contains(defaultStyle));
+      .then((classList) => expect(classList).contains(DEFAULT_STYLE));
   });
 
   it("Правильное добавление элемента по индексу", () => {
     addIndex("13", 2);
     cy.wait(500);
-    cy.get(dataTestCircle).then((e) => {
+    cy.get(DATA_TEST_CIRCLE).then((e) => {
       cy.get(e[0]).children().should("have.text", "13");
       cy.get(e[0])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(changingStyle));
+        .then((classList) => expect(classList).contains(CHANGING_STYLE));
 
       cy.get(e[1]).children().should("have.text", "85");
       cy.get(e[1])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(changingStyle));
+        .then((classList) => expect(classList).contains(CHANGING_STYLE));
 
       cy.get(e[2]).children().should("have.text", "13");
       cy.get(e[2])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(defaultStyle));
+        .then((classList) => expect(classList).contains(DEFAULT_STYLE));
 
       cy.get(e[3]).children().should("have.text", "34");
       cy.get(e[3])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(defaultStyle));
+        .then((classList) => expect(classList).contains(DEFAULT_STYLE));
 
       cy.get(e[4]).children().should("have.text", "7");
       cy.get(e[4])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(defaultStyle));
+        .then((classList) => expect(classList).contains(DEFAULT_STYLE));
     });
 
-    cy.get(dataTestCircle).then((e) => {
+    cy.get(DATA_TEST_CIRCLE).then((e) => {
       cy.get(e[0]).children().should("have.text", "13");
       cy.get(e[0])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(changingStyle));
+        .then((classList) => expect(classList).contains(CHANGING_STYLE));
 
       cy.get(e[1]).children().should("have.text", "85");
       cy.get(e[1])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(changingStyle));
+        .then((classList) => expect(classList).contains(CHANGING_STYLE));
 
       cy.get(e[2]).children().should("have.text", "13");
       cy.get(e[2])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(defaultStyle));
+        .then((classList) => expect(classList).contains(DEFAULT_STYLE));
 
       cy.get(e[3]).children().should("have.text", "34");
       cy.get(e[3])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(defaultStyle));
+        .then((classList) => expect(classList).contains(DEFAULT_STYLE));
 
       cy.get(e[4]).children().should("have.text", "7");
       cy.get(e[4])
         .invoke("attr", "class")
-        .then((classList) => expect(classList).contains(defaultStyle));
+        .then((classList) => expect(classList).contains(DEFAULT_STYLE));
     });
 
-    cy.get(dataTestCircle)
+    cy.get(DATA_TEST_CIRCLE)
       .should("have.length", 5)
       .invoke("attr", "class")
       .then((classList) => expect(classList).contains("circle_small"));
   });
 
   it("Правильное удаление элемента из head.", () => {
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestInput).should("be.not.disabled");
-      cy.get(dataTestAddTail).should("be.disabled");
-      cy.get(dataTestAddHead).should("be.disabled");
-      cy.get(dataTestDeleteTail).should("be.not.disabled");
-      cy.get(dataTestDeleteHead).should("be.not.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_INPUT).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_TAIL).should("be.disabled");
+      cy.get(DATA_TEST_ADD_HEAD).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.not.disabled");
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.not.disabled");
     });
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestInputIndex).should("be.not.disabled");
-      cy.get(dataTestAddIndex).should("be.disabled");
-      cy.get(dataTestDeleteByIndex).should("be.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_INPUT_INDEX).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.disabled");
     });
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestDeleteHead).click();
-      cy.get(dataTestAddHead).should("be.disabled");
-      cy.get(dataTestInput).should("be.disabled");
-      cy.get(dataTestAddTail).should("be.disabled");
-      cy.get(dataTestDeleteTail).should("be.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_DELETE_HEAD).click();
+      cy.get(DATA_TEST_ADD_HEAD).should("be.disabled");
+      cy.get(DATA_TEST_INPUT).should("be.disabled");
+      cy.get(DATA_TEST_ADD_TAIL).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.disabled");
     });
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestInputIndex).should("be.disabled");
-      cy.get(dataTestAddIndex).should("be.disabled");
-      cy.get(dataTestDeleteByIndex).should("be.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_INPUT_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_ADD_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.disabled");
     });
 
     cy.wait(500);
 
-    cy.get(dataTestCircle).then((e) => {
+    cy.get(DATA_TEST_CIRCLE).then((e) => {
       cy.get(e[0]).children().should("have.text", "13");
       cy.get(e[1]).children().should("have.text", "34");
       cy.get(e[2]).children().should("have.text", "7");
     });
 
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestInput).should("be.not.disabled");
-      cy.get(dataTestAddTail).should("be.disabled");
-      cy.get(dataTestAddHead).should("be.disabled");
-      cy.get(dataTestDeleteTail).should("be.not.disabled");
-      cy.get(dataTestDeleteHead).should("be.not.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_INPUT).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_TAIL).should("be.disabled");
+      cy.get(DATA_TEST_ADD_HEAD).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.not.disabled");
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.not.disabled");
     });
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestInputIndex).should("be.not.disabled");
-      cy.get(dataTestAddIndex).should("be.disabled");
-      cy.get(dataTestDeleteByIndex).should("be.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_INPUT_INDEX).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.disabled");
     });
   });
 
   it("Правильное удаление элемента из tail.", () => {
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestInput).should("be.not.disabled");
-      cy.get(dataTestAddTail).should("be.disabled");
-      cy.get(dataTestAddHead).should("be.disabled");
-      cy.get(dataTestDeleteTail).should("be.not.disabled");
-      cy.get(dataTestDeleteHead).should("be.not.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_INPUT).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_TAIL).should("be.disabled");
+      cy.get(DATA_TEST_ADD_HEAD).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.not.disabled");
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.not.disabled");
     });
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestInputIndex).should("be.not.disabled");
-      cy.get(dataTestAddIndex).should("be.disabled");
-      cy.get(dataTestDeleteByIndex).should("be.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_INPUT_INDEX).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.disabled");
     });
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestDeleteTail).click();
-      cy.get(dataTestDeleteHead).should("be.disabled");
-      cy.get(dataTestAddHead).should("be.disabled");
-      cy.get(dataTestInput).should("be.disabled");
-      cy.get(dataTestAddTail).should("be.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_DELETE_TAIL).click();
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.disabled");
+      cy.get(DATA_TEST_ADD_HEAD).should("be.disabled");
+      cy.get(DATA_TEST_INPUT).should("be.disabled");
+      cy.get(DATA_TEST_ADD_TAIL).should("be.disabled");
     });
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestInputIndex).should("be.disabled");
-      cy.get(dataTestAddIndex).should("be.disabled");
-      cy.get(dataTestDeleteByIndex).should("be.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_INPUT_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_ADD_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.disabled");
     });
 
     cy.wait(500);
 
-    cy.get(dataTestCircle).then((e) => {
+    cy.get(DATA_TEST_CIRCLE).then((e) => {
       cy.get(e[0]).children().should("have.text", "85");
       cy.get(e[1]).children().should("have.text", "13");
       cy.get(e[2]).children().should("have.text", "34");
     });
 
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestInput).should("be.not.disabled");
-      cy.get(dataTestAddTail).should("be.disabled");
-      cy.get(dataTestAddHead).should("be.disabled");
-      cy.get(dataTestDeleteTail).should("be.not.disabled");
-      cy.get(dataTestDeleteHead).should("be.not.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_INPUT).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_TAIL).should("be.disabled");
+      cy.get(DATA_TEST_ADD_HEAD).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.not.disabled");
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.not.disabled");
     });
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestInputIndex).should("be.not.disabled");
-      cy.get(dataTestAddIndex).should("be.disabled");
-      cy.get(dataTestDeleteByIndex).should("be.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_INPUT_INDEX).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.disabled");
     });
   });
 
   it("Правильное удаление элемента по индексу", () => {
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestInput).should("be.not.disabled");
-      cy.get(dataTestAddTail).should("be.disabled");
-      cy.get(dataTestAddHead).should("be.disabled");
-      cy.get(dataTestDeleteTail).should("be.not.disabled");
-      cy.get(dataTestDeleteHead).should("be.not.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_INPUT).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_TAIL).should("be.disabled");
+      cy.get(DATA_TEST_ADD_HEAD).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.not.disabled");
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.not.disabled");
     });
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestInputIndex).type("1");
-      cy.get(dataTestAddIndex).should("be.disabled");
-      cy.get(dataTestDeleteByIndex).should("be.not.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_INPUT_INDEX).type("1");
+      cy.get(DATA_TEST_ADD_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.not.disabled");
     });
 
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestDeleteByIndex).click();
-      cy.get(dataTestInputIndex).should("be.disabled");
-      cy.get(dataTestAddIndex).should("be.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_DELETE_INDEX).click();
+      cy.get(DATA_TEST_INPUT_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_ADD_INDEX).should("be.disabled");
     });
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestDeleteTail).should("be.disabled");
-      cy.get(dataTestDeleteHead).should("be.disabled");
-      cy.get(dataTestAddHead).should("be.disabled");
-      cy.get(dataTestInput).should("be.disabled");
-      cy.get(dataTestAddTail).should("be.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.disabled");
+      cy.get(DATA_TEST_ADD_HEAD).should("be.disabled");
+      cy.get(DATA_TEST_INPUT).should("be.disabled");
+      cy.get(DATA_TEST_ADD_TAIL).should("be.disabled");
     });
 
     cy.wait(500);
 
-    cy.get(dataTestCircle).then((e) => {
+    cy.get(DATA_TEST_CIRCLE).then((e) => {
       cy.get(e[0]).children().should("have.text", "85");
       cy.get(e[1]).children().should("have.text", "13");
       cy.get(e[2]).children().should("have.text", "34");
@@ -422,7 +422,7 @@ describe('Страница "Связный список" отображаетс�
 
     cy.wait(500);
 
-    cy.get(dataTestCircle).then((e) => {
+    cy.get(DATA_TEST_CIRCLE).then((e) => {
       cy.get(e[0]).children().should("have.text", "85");
       cy.get(e[1]).children().should("have.text", "13");
       cy.get(e[2]).children().should("have.text", "34");
@@ -431,7 +431,7 @@ describe('Страница "Связный список" отображаетс�
 
     cy.wait(500);
 
-    cy.get(dataTestCircle).then((e) => {
+    cy.get(DATA_TEST_CIRCLE).then((e) => {
       cy.get(e[0]).children().should("have.text", "85");
       cy.get(e[1]).children().should("have.text", "13");
       cy.get(e[2]).children().should("have.text", "");
@@ -441,7 +441,7 @@ describe('Страница "Связный список" отображаетс�
 
     cy.wait(500);
 
-    cy.get(dataTestCircle).then((e) => {
+    cy.get(DATA_TEST_CIRCLE).then((e) => {
       cy.get(e[0]).children().should("have.text", "85");
       cy.get(e[1]).children().should("have.text", "34");
       cy.get(e[2]).children().should("have.text", "7");
@@ -449,28 +449,28 @@ describe('Страница "Связный список" отображаетс�
 
     cy.wait(500);
 
-    cy.get(dataTestCircle).then((e) => {
+    cy.get(DATA_TEST_CIRCLE).then((e) => {
       cy.get(e[0]).children().should("have.text", "85");
       cy.get(e[1]).children().should("have.text", "34");
       cy.get(e[2]).children().should("have.text", "7");
     });
 
-    cy.get(dataTestForm).within(() => {
-      cy.get(dataTestInput).should("be.not.disabled");
-      cy.get(dataTestAddTail).should("be.disabled");
-      cy.get(dataTestAddHead).should("be.disabled");
-      cy.get(dataTestDeleteTail).should("be.not.disabled");
-      cy.get(dataTestDeleteHead).should("be.not.disabled");
+    cy.get(DATA_TEST_FORM).within(() => {
+      cy.get(DATA_TEST_INPUT).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_TAIL).should("be.disabled");
+      cy.get(DATA_TEST_ADD_HEAD).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_TAIL).should("be.not.disabled");
+      cy.get(DATA_TEST_DELETE_HEAD).should("be.not.disabled");
     });
-    cy.get(dataTestFormIndex).within(() => {
-      cy.get(dataTestInputIndex).should("be.not.disabled");
-      cy.get(dataTestAddIndex).should("be.disabled");
-      cy.get(dataTestDeleteByIndex).should("be.not.disabled");
+    cy.get(DATA_TEST_FORM_INDEX).within(() => {
+      cy.get(DATA_TEST_INPUT_INDEX).should("be.not.disabled");
+      cy.get(DATA_TEST_ADD_INDEX).should("be.disabled");
+      cy.get(DATA_TEST_DELETE_INDEX).should("be.not.disabled");
     });
 
-    cy.get(dataTestCircle)
+    cy.get(DATA_TEST_CIRCLE)
       .should("have.length", 3)
       .invoke("attr", "class")
-      .then((classList) => expect(classList).contains(defaultStyle));
+      .then((classList) => expect(classList).contains(DEFAULT_STYLE));
   });
 });

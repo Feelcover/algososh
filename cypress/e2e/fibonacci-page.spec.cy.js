@@ -1,8 +1,8 @@
-import { dataTestCircle, testUrl } from "../constants/constants";
+import { DATA_TEST_CIRCLE, TEST_URL } from "../constants/constants";
 
 describe('Страница "Строка" отображается правильно', () => {
   beforeEach(() => {
-    cy.visit(testUrl);
+    cy.visit(TEST_URL);
     cy.get('[href*="/fibonacci"]').click();
   });
   it("Кнопка отключена при пустом инпуте", () => {
@@ -13,8 +13,8 @@ describe('Страница "Строка" отображается правил�
     cy.get("input").type("19");
     cy.get("button").eq(1).click();
 
-    cy.wait(500 * 19);
-    cy.get(dataTestCircle)
+    cy.wait(500 * 18);
+    cy.get(DATA_TEST_CIRCLE)
       .should("have.length", 19)
       .each((value, index) => {
         if (index === 0) {

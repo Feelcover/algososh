@@ -1,7 +1,7 @@
-import { testUrl } from "../constants/constants";
+import { TEST_URL } from "../constants/constants";
 
 describe('Сервис работает', () => {
     it('Сервис доступен по localhost:3000', () => {
-        cy.visit(testUrl);
+        cy.visit(TEST_URL);
     });
 });
