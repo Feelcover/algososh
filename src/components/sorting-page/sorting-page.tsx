@@ -9,7 +9,8 @@ import { RadioInput } from "../ui/radio-input/radio-input";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { randomSortArr } from "./sorting-page-utils";
 import styles from "./sorting-page.module.css";
-import { elementsForSort, oneElementForSort } from ".//sorting-page-utils";
+import { elementsForSort, oneElementForSort } from "./sorting-page-utils";
+
 
 export const SortingPage: React.FC = () => {
   const [arr, setArr] = useState<Array<TSortArr>>([]);
